@@ -8,41 +8,58 @@ URL = "https://api.mg-rast.org/metadata/export/mgp385"
 #URL = "https://www.google.com/search?q=london"
 #response = ses.get("https://api.mg-rast.org/1/profile/mgm4472361.3?source=RefSeq")
 
-
-try:
-    #ses = requests.session()
-    with requests.session() as ses:
-        try:
-            response = ses.get(URL, timeout=3.0)
-        except requests.exceptions.Timeout as e:
-            print(f"TimeoutError: The connection timed out \n {e} \n")
-            raise
-        
-    if response.status_code == requests.codes.ok:
-        print(f"Good request for url: {URL}.\n")
-        
-    try:
-        response.raise_for_status()
-    except requests.exceptions.HTTPError as e:
-        print(f"HTTPError: {response.text} \n {e} \n")
-        raise
-        #raise HTTPError(e, response.text)
+class Data_pull:
     
-    try:
-        mdata = response.json()
-    except requests.exceptions.JSONDecodeError as e:
-        print(f"JSONDecodeError: The file must be JSON. \n {e} \n")
-        raise
+    def __init__(self):
+        self.response = None
+        self.pulled_data = None
+
+    def pull_study_metadata(self, url):
+        self.url = url
+        try:
+            #ses = requests.session()
+            with requests.session() as ses:
+                try:
+                    self.response = ses.get(self.url, timeout=120)
+                except requests.exceptions.Timeout as e:
+                    print(f"TimeoutError: The connection timed out \n {e} \n")
+                    raise
+        
+            if self.response.status_code == requests.codes.ok:
+                print(f"Good request for url: {self.url}.\n")
+        
+            try:
+                self.response.raise_for_status()
+            except requests.exceptions.HTTPError as e:
+                print(f"HTTPError: {self.response.text} \n {e} \n")
+                raise
+                #raise HTTPError(e, response.text)
+    
+            try:
+                self.pulled_data = self.response.json()
+            except requests.exceptions.JSONDecodeError as e:
+                print(f"JSONDecodeError: The file must be JSON. \n {e} \n")
+                raise
         
    
-except requests.exceptions.ConnectionError as e:
-#except requests.exceptions.ConnectionError:
-    #time.sleep(5)
-    #continue
-    print(f"ConnectionError: Connection refused, try it again later. \n {e} \n")
-    raise
-    #raise requests.exceptions.ConnectionError(e, "Connection refused")
-    #response.status_code = "Connection refused"
+        except requests.exceptions.ConnectionError as e:
+        #except requests.exceptions.ConnectionError:
+            #time.sleep(5)
+            #continue
+            print(f"ConnectionError: Connection refused, try it again later. \n {e} \n")
+            raise
+            #raise requests.exceptions.ConnectionError(e, "Connection refused")
+            #response.status_code = "Connection refused"
+        return self.pulled_data
+
+data_pull = Data_pull() 
+#meta_data = data_pull.pull_study_metadata("https://api.mg-rast.org/metadata/export/mgp385")
+#meta_data = data_pull.pull_study_metadata("https://api.mg-rast.org/metadata/view/env_package")
+meta_data = data_pull.pull_study_metadata("https://api.mg-rast.org/project?limit=20&order=id&verbosity=full")
+
+#print(type(meta_data.keys))
+#print(meta_data.keys())
+print(meta_data)
 
 '''
 In case the JSON decoding fails, r.json() raises an exception. For example, if 

@@ -1,23 +1,19 @@
 import requests
-from time import sleep
-#from requests.exceptions import HTTPError
-#from requests.exceptions import JSONDecodeError
-#from requests.exceptions import ConnectionError
+
 
 URL = "https://api.mg-rast.org/metadata/export/mgp385"
-#URL = "https://www.google.com/search?q=london"
-#response = ses.get("https://api.mg-rast.org/1/profile/mgm4472361.3?source=RefSeq")
 
 class Data_pull:
     
     def __init__(self):
         self.response = None
         self.pulled_data = None
+        self.human_project_id_list = []
+        self.human_project_name_list = []
 
-    def pull_study_metadata(self, url):
+    def pull_data(self, url):
         self.url = url
         try:
-            #ses = requests.session()
             with requests.session() as ses:
                 try:
                     self.response = ses.get(self.url, timeout=120)
@@ -33,7 +29,6 @@ class Data_pull:
             except requests.exceptions.HTTPError as e:
                 print(f"HTTPError: {self.response.text} \n {e} \n")
                 raise
-                #raise HTTPError(e, response.text)
     
             try:
                 self.pulled_data = self.response.json()
@@ -43,23 +38,59 @@ class Data_pull:
         
    
         except requests.exceptions.ConnectionError as e:
-        #except requests.exceptions.ConnectionError:
-            #time.sleep(5)
-            #continue
             print(f"ConnectionError: Connection refused, try it again later. \n {e} \n")
             raise
-            #raise requests.exceptions.ConnectionError(e, "Connection refused")
-            #response.status_code = "Connection refused"
+
         return self.pulled_data
+    
+    def get_human_wgs_projects(self, json_dic):
+        for item in json_dic['data']:
+            if item['sequence_type'] == 'WGS' and item['project_id'] not in self.human_project_id_list:
+                self.human_project_id_list.append(item['project_id'])
+                self.human_project_name_list.append
 
 data_pull = Data_pull() 
-#meta_data = data_pull.pull_study_metadata("https://api.mg-rast.org/metadata/export/mgp385")
-#meta_data = data_pull.pull_study_metadata("https://api.mg-rast.org/metadata/view/env_package")
-meta_data = data_pull.pull_study_metadata("https://api.mg-rast.org/project?limit=20&order=id&verbosity=full")
+
+meta_data_human_skin = data_pull.pull_data("https://api.mg-rast.org/search?limit=1000&env_package=human-skin&sequence_type=WGS")
+meta_data_human_associated = data_pull.pull_data("https://api.mg-rast.org/search?limit=1000&env_package=human-associated&sequence_type=WGS")
+meta_data_human_gut = data_pull.pull_data("https://api.mg-rast.org/search?limit=1000&env_package=human-gut&sequence_type=WGS")
+meta_data_human_oral = data_pull.pull_data("https://api.mg-rast.org/search?limit=1000&env_package=human-oral&sequence_type=WGS")
+
+
+data_pull.get_human_wgs_projects(meta_data_human_skin)
+data_pull.get_human_wgs_projects(meta_data_human_associated)
+data_pull.get_human_wgs_projects(meta_data_human_gut)
+data_pull.get_human_wgs_projects(meta_data_human_oral)
+
+print(data_pull.human_project_id_list)
+print(len(data_pull.human_project_id_list))
+print('\n')
+print(meta_data_human_oral)
+
+
 
 #print(type(meta_data.keys))
 #print(meta_data.keys())
-print(meta_data)
+#print('\n')
+#print(meta_data_human_skin)
+#print(meta_data_human_skin['data'])
+
+
+
+
+
+
+'''
+
+'project_id'
+'project_name'
+'organization'
+'organization_country'
+'env_package_type'
+'sequence_type'
+'seq_meth'
+'target_gene'
+'''
 
 '''
 In case the JSON decoding fails, r.json() raises an exception. For example, if 

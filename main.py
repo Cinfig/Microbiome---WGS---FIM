@@ -1,6 +1,5 @@
 import requests
 
-
 URL = "https://api.mg-rast.org/metadata/export/mgp385"
 
 class Data_pull:
@@ -56,7 +55,6 @@ meta_data_human_associated = data_pull.pull_data("https://api.mg-rast.org/search
 meta_data_human_gut = data_pull.pull_data("https://api.mg-rast.org/search?limit=1000&env_package=human-gut&sequence_type=WGS")
 meta_data_human_oral = data_pull.pull_data("https://api.mg-rast.org/search?limit=1000&env_package=human-oral&sequence_type=WGS")
 
-
 data_pull.get_human_wgs_projects(meta_data_human_skin)
 data_pull.get_human_wgs_projects(meta_data_human_associated)
 data_pull.get_human_wgs_projects(meta_data_human_gut)
@@ -64,66 +62,3 @@ data_pull.get_human_wgs_projects(meta_data_human_oral)
 
 print(data_pull.human_project_id_list)
 print(len(data_pull.human_project_id_list))
-print('\n')
-print(meta_data_human_oral)
-
-
-
-#print(type(meta_data.keys))
-#print(meta_data.keys())
-#print('\n')
-#print(meta_data_human_skin)
-#print(meta_data_human_skin['data'])
-
-
-
-
-
-
-'''
-
-'project_id'
-'project_name'
-'organization'
-'organization_country'
-'env_package_type'
-'sequence_type'
-'seq_meth'
-'target_gene'
-'''
-
-'''
-In case the JSON decoding fails, r.json() raises an exception. For example, if 
-the response gets a 204 (No Content), or if the response contains invalid JSON, 
-attempting r.json() raises requests.exceptions.JSONDecodeError.
-'''
-
-
-'''
-raceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-requests.exceptions.Timeout: HTTPConnectionPool(host='github.com', port=80): 
-Request timed out. (timeout=0.001)
-'''
-
-'''
-Errors and Exceptions
-In the event of a network problem (e.g. DNS failure, refused connection, etc), 
-Requests will raise a ConnectionError exception.
-
-Response.raise_for_status() will raise an HTTPError if the HTTP request returned 
-an unsuccessful status code.
-
-If a request times out, a Timeout exception is raised.
-
-If a request exceeds the configured number of maximum redirections,
- a TooManyRedirects exception is raised.
-
-All exceptions that Requests explicitly raises inherit from 
-requests.exceptions.RequestException.
-'''
-
-#print(response.json())
-#response.text
-#print(type(response.text))
-#print(response.text)

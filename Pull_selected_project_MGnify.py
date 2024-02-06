@@ -16,6 +16,7 @@ import copy
 
 SAVE_PATH = "/Users/adamveszpremi/Desktop/MSc project work/Output"
 TAXONOMY_LEVELS = ['attributes.domain', 'attributes.hierarchy.phylum', 'attributes.hierarchy.class', 'attributes.hierarchy.order', 'attributes.hierarchy.family', 'attributes.hierarchy.genus', 'attributes.hierarchy.species']
+TAXONOMY_LEVELS_COUNTS = ['attributes.domain_count', 'attributes.hierarchy.phylum_count', 'attributes.hierarchy.class_count', 'attributes.hierarchy.order_count', 'attributes.hierarchy.family_count', 'attributes.hierarchy.genus_count', 'attributes.hierarchy.species_count']
 
 
 class Pull_selected_project:
@@ -27,15 +28,14 @@ class Pull_selected_project:
         self.selected_project_id = ""
         self.metadata_response = ""
         self.sample_id_list = []
-        self.profile_response = ""
+        self.taxonomy_response = ""
         self.functionality_response = ""
-        self.profile_dataframe = pd.DataFrame()
-        self.profile_dataframe_merged = pd.DataFrame()
-        self.profile_dataframe_merged_final = pd.DataFrame()
-        self.profile_dataframe_final = pd.DataFrame()
-        self.profile_dataframe_transaction = pd.DataFrame()
-        self.profile_dataframe_transaction_final = pd.DataFrame()
-        
+        self.taxonomy_dataframe = pd.DataFrame()
+        self.taxonomy_dataframe_merged = pd.DataFrame()
+        self.taxonomy_dataframe_merged_final = pd.DataFrame()
+        self.taxonomy_dataframe_final = pd.DataFrame()
+        self.taxonomy_dataframe_transaction = pd.DataFrame()
+        self.taxonomy_dataframe_transaction_final = pd.DataFrame()       
         self.functionality_dataframe = pd.DataFrame()
         self.functionality_dataframe_merged = pd.DataFrame()
         self.functionality_dataframe_merged_final = pd.DataFrame()
@@ -60,30 +60,53 @@ class Pull_selected_project:
     def set_metadata_response(self, assign):
         self.metadata_response = assign
 
-    def get_profile_response(self):
-        return self.profile_response
+    def get_taxonomy_response(self):
+        return self.taxonomy_response
         
-    def set_profile_response(self, assign):
-        self.profile_response = assign
+    def set_taxonomy_response(self, assign):
+        self.taxonomy_response = assign
     
     def get_functionality_response(self):
         return self.functionality_response
         
     def set_functionality_response(self, assign):
         self.functionality_response = assign
+        
+    def get_sample_id_list(self):
+        return self.sample_id_list 
 
-    def get_profile_dataframe(self):
-        return self.profile_dataframe
+    def get_taxonomy_dataframe(self):
+        return self.taxonomy_dataframe
       
-    def set_profile_dataframe(self, assign):
-        self.profile_dataframe = assign
+    def set_taxonomy_dataframe(self, assign):
+        self.taxonomy_dataframe = assign
+        
+    def get_taxonomy_dataframe_final(self):
+        return self.taxonomy_dataframe_final
     
-    def get_profile_dataframe_merged(self):
-        return self.profile_dataframe_merged
+    def set_taxonomy_dataframe_final(self, assign):
+        self.taxonomy_dataframe_final = assign
     
-    def set_profile_dataframe_merged(self, assign):
-        self.profile_dataframe_merged = assign
+    def get_taxonomy_dataframe_merged(self):
+        return self.taxonomy_dataframe_merged
     
+    def set_taxonomy_dataframe_merged(self, assign):
+        self.taxonomy_dataframe_merged = assign
+    
+    def get_taxonomy_dataframe_merged_final(self):
+        return self.taxonomy_dataframe_merged_final
+    
+    def get_taxonomy_dataframe_transaction(self):
+        return self.taxonomy_dataframe_transaction
+    
+    def set_taxonomy_dataframe_transaction(self, assign):
+        self.taxonomy_dataframe_transaction = assign
+    
+    def get_taxonomy_dataframe_transaction_final(self):
+        return self.taxonomy_dataframe_transaction_final
+    
+    def set_taxonomy_dataframe_transaction_final(self, assign):
+        self.taxonomy_dataframe_transaction_final = assign
     
     def get_functionality_dataframe(self):
         return self.functionality_dataframe
@@ -91,15 +114,89 @@ class Pull_selected_project:
     def set_functionality_dataframe(self, assign):
         self.functionality_dataframe = assign
     
+    def get_functionality_dataframe_final(self):
+        return self.functionality_dataframe_final
+    
+    def set_functionality_dataframe_final(self, assign):
+        self.functionality_dataframe_final = assign
+    
     def get_functionality_dataframe_merged(self):
         return self.functionality_dataframe_merged
     
     def set_functionality_dataframe_merged(self, assign):
-        self.functionality_dataframe_merged = assign   
+        self.functionality_dataframe_merged = assign
+    
+    def get_functionality_dataframe_merged_final(self):
+        return self.functionality_dataframe_merged_final
+    
+    def get_functionality_dataframe_transaction(self):
+        return self.functionality_dataframe_transaction
+    
+    def set_functionality_dataframe_transaction(self, assign):
+        self.functionality_dataframe_transaction = assign
+    
+    def get_functionality_dataframe_transaction_final(self):
+        return self.functionality_dataframe_transaction_final
+    
+    def set_functionality_dataframe_transaction_final(self, assign):
+        self.functionality_dataframe_transaction_final = assign
 
     
+    def create_functionality_transacation_databases(self, URL_id, save_id):
+        for item in self.get_sample_id_list():
+            self.pull_profile_functionality(item, URL_id, save_id)
+            self.set_functionality_dataframe_final(pd.concat([self.get_functionality_dataframe_final(), self.get_functionality_dataframe_merged()]))
+            self.get_functionality_dataframe_final().reset_index(drop = True, inplace=True)
+            if self.get_functionality_dataframe_final().shape[0] == 0:
+                break
+            else:
+                pass
+            self.set_functionality_dataframe_merged(self.calculate_relative_abundance(self.get_functionality_dataframe_merged(), item, URL_id))
+            self.create_functionality_transaction_dataframes(item, self.get_functionality_dataframe_merged(), self.get_functionality_dataframe_transaction(), save_id)
+            if self.functionality_dataframe_transaction_final.shape[0] == 0:
+                self.functionality_dataframe_transaction_final = self.get_functionality_dataframe_transaction()
+            else:
+                self.functionality_dataframe_transaction_final = self.functionality_dataframe_transaction_final.merge(self.get_functionality_dataframe_transaction(), how = 'outer')
+                    
+            if self.get_functionality_dataframe_final().shape[0] != 0:
+                self.get_functionality_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_functionality_{save_id}.csv")
+                self.functionality_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_{save_id}.csv")
+            else:
+                pass
+
+        self.set_functionality_dataframe_final(pd.DataFrame())
+        self.set_functionality_dataframe_merged(pd.DataFrame())
+        self.set_functionality_dataframe_transaction(pd.DataFrame())
+        self.set_functionality_dataframe_transaction_final(pd.DataFrame())
     
-    
+    def create_taxonomy_transaction_databases(self, URL_id, save_id, level, level_abundance):
+        for item in self.get_sample_id_list():
+            self.pull_profile_taxonomy(item, URL_id, save_id)
+            self.set_taxonomy_dataframe_final(pd.concat([self.get_taxonomy_dataframe_final(), self.get_taxonomy_dataframe_merged()]))
+            self.get_taxonomy_dataframe_final().reset_index(drop = True, inplace=True)
+            if self.get_taxonomy_dataframe_final().shape[0] == 0:
+                break
+            else:
+                pass
+            self.set_taxonomy_dataframe_merged(self.calculate_relative_abundance_multilevel(self.get_taxonomy_dataframe_merged(), item, URL_id))
+            self.create_taxonomy_transaction_dataframes(item, self.get_taxonomy_dataframe_merged(), self.get_taxonomy_dataframe_transaction(), save_id, level, level_abundance)
+            if self.taxonomy_dataframe_transaction_final.shape[0] == 0:
+                self.taxonomy_dataframe_transaction_final = self.get_taxonomy_dataframe_transaction()
+            else:
+                self.taxonomy_dataframe_transaction_final = self.taxonomy_dataframe_transaction_final.merge(self.get_taxonomy_dataframe_transaction(), how = 'outer')
+                
+            if self.get_taxonomy_dataframe_final().shape[0] != 0:
+                self.get_taxonomy_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_taxonomy_{save_id}.csv")
+                self.taxonomy_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_{save_id}.csv")
+            else:
+                pass
+        
+        self.set_taxonomy_dataframe_final(pd.DataFrame())
+        self.set_taxonomy_dataframe_merged(pd.DataFrame())
+        self.set_taxonomy_dataframe_transaction(pd.DataFrame())
+        self.set_taxonomy_dataframe_transaction_final(pd.DataFrame())
+                
+                    
     def pull_selected_data(self):
         
         self.set_selected_project_id(str(input("Enter a study ID below:\n")))
@@ -108,217 +205,324 @@ class Pull_selected_project:
         n = 0
         print(f"The total number of samples in this project is {len(self.get_metadata_response()['data'])}")
         while n < ((len(self.get_metadata_response()['data']))):
-           self.sample_id_list.append(self.get_metadata_response()['data'][n]['id']) 
+           self.get_sample_id_list().append(self.get_metadata_response()['data'][n]['id']) 
            
            print(f"Sample {n} of the selected project is: {self.get_metadata_response()['data'][n]['id']}")
            n = n + 1
         
-        for item in self.sample_id_list:
-            # Get all taxonomy data from all samples.
-            self.pull_profile_taxonomy(item)
-            self.profile_dataframe_final = pd.concat([self.profile_dataframe_final, self.profile_dataframe_merged])
-            self.profile_dataframe_final.reset_index(drop = True, inplace=True)
-            
-            # Get all interpro_identifiers data from all samples.
-            self.pull_profile_functionality(item, 'interpro_identifier')
-            self.functionality_dataframe_final = pd.concat([self.functionality_dataframe_final, self.functionality_dataframe_merged])
-            self.functionality_dataframe_final.reset_index(drop = True, inplace=True)
-            
-            #self.create_transaction_dataframes(item, self.get_profile_dataframe_merged(), self.profile_dataframe_transaction, 'taxonomy') # species names are often missing
-            self.create_transaction_dataframes(item, self.get_functionality_dataframe_merged(), self.functionality_dataframe_transaction, 'interpro_identifier')
-            
-            
+        self.create_taxonomy_transaction_databases('taxonomy', 'taxonomy_domain', 'attributes.domain', 'attributes.domain_relative_abundance')
+        self.create_taxonomy_transaction_databases('taxonomy', 'taxonomy_phylum', 'attributes.hierarchy.phylum', 'attributes.hierarchy.phylum_relative_abundance')
+        self.create_taxonomy_transaction_databases('taxonomy', 'taxonomy_class', 'attributes.hierarchy.class', 'attributes.hierarchy.class_relative_abundance')
+        self.create_taxonomy_transaction_databases('taxonomy', 'taxonomy_order', 'attributes.hierarchy.order', 'attributes.hierarchy.order_relative_abundance')
+        self.create_taxonomy_transaction_databases('taxonomy', 'taxonomy_family', 'attributes.hierarchy.family', 'attributes.hierarchy.family_relative_abundance')
+        self.create_taxonomy_transaction_databases('taxonomy', 'taxonomy_genus', 'attributes.hierarchy.genus', 'attributes.hierarchy.genus_relative_abundance')
+        self.create_taxonomy_transaction_databases('taxonomy', 'taxonomy_species', 'attributes.hierarchy.species', 'attributes.hierarchy.species_relative_abundance')
+        #self.create_functionality_transacation_databases('go-slim', 'go_slim')
+        #self.create_functionality_transacation_databases('go-terms', 'go_terms')
+        #self.create_functionality_transacation_databases('antismash-gene-clusters', 'antismash_gene_clusters')
+        #self.create_functionality_transacation_databases('genome-properties', 'genome_properties')
+        #self.create_functionality_transacation_databases('interpro-identifiers', 'interpro_identifiers')
         
-        self.calculate_relative_abundance(self.profile_dataframe_merged, self.profile_dataframe_merged_final, 'taxonomy')
-        self.calculate_relative_abundance(self.functionality_dataframe_merged, self.functionality_dataframe_merged_final, 'interpro_identifier')
-        
-        
-        self.profile_dataframe_final.to_csv(f"{SAVE_PATH}/counts_of_taxonomy.csv")
-        #self.functionality_dataframe_merged_final.to_csv(f"{SAVE_PATH}/relative_abundance_of_taxonomy.csv")
-        self.functionality_dataframe_final.to_csv(f"{SAVE_PATH}/counts_of_functionalities.csv")
-        #self.functionality_dataframe_merged_final.to_csv(f"{SAVE_PATH}/relative_abundance_of_functionalities.csv")
-        self.functionality_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/transactional_db_functionalities.csv")
-        
+
     
 
     '''
     Pull counts of selected project samples
     '''
-    def pull_profile_taxonomy(self, sample_id):
-        self.set_profile_response(self.Connect.pull_data(f" https://www.ebi.ac.uk/metagenomics/api/v1/analyses/{sample_id}/taxonomy"))
-        self.set_profile_dataframe_merged(pd.json_normalize(self.get_profile_response()['data']))
-        while self.get_profile_response()['links']['next'] is not None:
-            self.set_profile_response(self.Connect.pull_data(self.get_profile_response()['links']['next']))
-            self.set_profile_dataframe(pd.json_normalize(self.get_profile_response()['data']))
-            self.profile_dataframe_merged = pd.concat([self.get_profile_dataframe_merged(), self.get_profile_dataframe()])
-        self.get_profile_dataframe_merged()['Sample id'] = f"{sample_id}"
-        self.get_profile_dataframe_merged().reset_index(drop = True, inplace=True)
-        self.profile_dataframe_merged.to_csv(f"{SAVE_PATH}/counts_of_taxonomy_{sample_id}.csv")
-
-    
-    def pull_profile_functionality(self, sample_id, name):
-        self.set_functionality_response(self.Connect.pull_data(f" https://www.ebi.ac.uk/metagenomics/api/v1/analyses/{sample_id}/interpro-identifiers"))
-        self.set_functionality_dataframe_merged(pd.json_normalize(self.get_functionality_response()['data']))
-        while self.get_functionality_response()['links']['next'] is not None:
-            self.set_functionality_response(self.Connect.pull_data(self.get_functionality_response()['links']['next']))
-            self.set_functionality_dataframe(pd.json_normalize(self.get_functionality_response()['data']))
-            self.functionality_dataframe_merged = pd.concat([self.get_functionality_dataframe_merged(), self.get_functionality_dataframe()])
-        self.get_functionality_dataframe_merged().reset_index(drop = True, inplace=True)
-        self.get_functionality_dataframe_merged()['Sample_id'] = f"{sample_id}"
-        self.functionality_dataframe_merged.to_csv(f"{SAVE_PATH}/counts_of_{name}_functionalities_{sample_id}.csv")
-        
-    def create_transaction_dataframes(self, sample_id, input_dataframe, output_dataframe, name):
-        output_dataframe = copy.deepcopy(input_dataframe)
-        output_dataframe.set_index('attributes.accession', inplace = True)
-        output_dataframe = output_dataframe[['attributes.count']]
-        output_dataframe = output_dataframe.transpose()
-        output_dataframe['Sample_id'] = f"{sample_id}"
-        output_dataframe.set_index('Sample_id', inplace = True)
-        output_dataframe.to_csv(f"{SAVE_PATH}/counts_of_{name}functionalities_transactional_{sample_id}.csv")
-
-        
-
-    def calculate_relative_abundance(self, input_dataframe, output_dataframe, name):
-        #self.functionality_dataframe_merged = pd.read_csv('/Users/adamveszpremi/Desktop/MSc project work/Output/counts_of_functionalities.csv', index_col = [0])
-        print(input_dataframe.columns)
-        self.count_sums_df = input_dataframe.groupby(['Sample_id']).sum()
-        for item in input_dataframe['Sample_id'].unique():
-            input_dataframe.loc[input_dataframe['Sample_id'] == f"{item}", 'attributes.relative_abundance'] = ((input_dataframe['attributes.count'] / self.count_sums_df['attributes.count'].loc[f"{item}"]) * 100).round(10)
-        output_dataframe = input_dataframe
-        return output_dataframe
-        self.input_dataframe.to_csv(f"{SAVE_PATH}/relative_abundance_of_{name}.csv")
-        
-      
-                    
-#3187281 
-#151073
-
-instance_2 = Pull_selected_project()
-#instance_2.calculate_relative_abundance()
-instance_2.pull_selected_data()
-        
-        
-        
-        
-        
-  
-        
-  
-    
-  
-    
-
-        
-            #https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00010232/taxonomy
-            #https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00010232/interpro-identifiers
-            
-        
-'''
-           while n < len(self.project_metadata_df_merged['id']):
-               print(self.project_metadata_df_merged['id'][n])
-               self.project_metadata_df_merged
-               try:
-                   self.set_check_selected_seq_method_dict(self.Connect.pull_data(f"https://www.ebi.ac.uk/metagenomics/api/v1/studies/{self.project_metadata_df_merged['id'][n]}/analyses"))
-                   print(self.get_check_selected_seq_method_dict()['data'][0]['attributes']['experiment-type'])
-                   #print(self.project_metadata_df_merged.index[n])
-                   if self.get_check_selected_seq_method_dict()['data'][0]['attributes']['experiment-type'] == 'metagenomic':
-                       pass
-                   else:
-                       self.project_metadata_df_merged_droplist.append(self.project_metadata_df_merged.index[n])
-               except:
-                   self.project_metadata_df_merged_droplist.append(self.project_metadata_df_merged.index[n])
-                   pass
-
-                   #self.project_metadata_df_merged.drop(self.project_metadata_df_merged.index[n], inplace = True)
-               n = n + 1
-           self.project_metadata_df_merged.drop(self.project_metadata_df_merged_droplist, inplace = True)
-    '''
-    
-
-'''
-    Pull metadata of the selected project id
-    '''
-'''
-    def pull_project_metadata(self):
-        
-        #self.set_selected_project_id(self.get_projects.get_user_termination_response())
-        self.set_selected_project_id('mgp87968')
-
+    def pull_profile_taxonomy(self, sample_id, name, save_name):
         try:
-            with pd.ExcelWriter(f"{self.get_selected_project_id()}_metadata_{self.get_projects.DATETIME_FORMAT}.xlsx") as writer:
-                self.set_metadata_response(self.Connect.pull_data(f"https://api.mg-rast.org/metadata/export/{self.get_selected_project_id()}"))
-                self.set_metadata_dataframe(pd.json_normalize(self.get_metadata_response()["samples"], record_path=["libraries"]))
-                self.get_metadata_dataframe().drop(list(self.get_metadata_dataframe().filter(regex = ".*required.*|.*mixs.*|.*definition.*|.*unit.*|.*aliases.*|.*type.*|.*libraries.*")), axis = 1, inplace = True)
-                self.get_metadata_dataframe().dropna(how="all", axis=1, inplace=True)
-                self.set_metadata_dataframe(self.get_metadata_dataframe().T.drop_duplicates(keep = "first").T)
-                self.get_metadata_dataframe().to_excel(writer, sheet_name = "samples_libraries")
+            self.set_taxonomy_dataframe_merged(pd.DataFrame())
+            self.set_taxonomy_response(self.Connect.pull_data(f" https://www.ebi.ac.uk/metagenomics/api/v1/analyses/{sample_id}/{name}"))
+            self.set_taxonomy_dataframe_merged(pd.json_normalize(self.get_taxonomy_response()['data']))
+            if self.get_taxonomy_dataframe_merged().shape[0] == 0:
+                print(f"The {save_name} json file is empty")
+            else:
+                while self.get_taxonomy_response()['links']['next'] is not None:
+                    self.set_taxonomy_response(self.Connect.pull_data(self.get_taxonomy_response()['links']['next']))
+                    self.set_taxonomy_dataframe(pd.json_normalize(self.get_taxonomy_response()['data']))
+                    self.set_taxonomy_dataframe_merged(pd.concat([self.get_taxonomy_dataframe_merged(), self.get_taxonomy_dataframe()]))
+                self.get_taxonomy_dataframe_merged()['Sample_id'] = f"{sample_id}"
+                self.get_taxonomy_dataframe_merged().reset_index(drop = True, inplace=True)
+                self.get_taxonomy_dataframe_merged().to_csv(f"{SAVE_PATH}/counts_of_{save_name}_{sample_id}.csv")
         except:
             pass
 
+
+    
+    def pull_profile_functionality(self, sample_id, name, save_name):
+        try:
+            self.set_functionality_dataframe_merged(pd.DataFrame())
+            self.set_functionality_response(self.Connect.pull_data(f" https://www.ebi.ac.uk/metagenomics/api/v1/analyses/{sample_id}/{name}"))
+            self.set_functionality_dataframe_merged(pd.json_normalize(self.get_functionality_response()['data']))
+            if self.get_functionality_dataframe_merged().shape[0] == 0:
+                print(f"The {save_name} json file is empty")
+            else:    
+                while self.get_functionality_response()['links']['next'] is not None:
+                    self.set_functionality_response(self.Connect.pull_data(self.get_functionality_response()['links']['next']))
+                    self.set_functionality_dataframe(pd.json_normalize(self.get_functionality_response()['data']))
+                    self.set_functionality_dataframe_merged(pd.concat([self.get_functionality_dataframe_merged(), self.get_functionality_dataframe()]))
+                self.get_functionality_dataframe_merged().reset_index(drop = True, inplace=True)
+                self.get_functionality_dataframe_merged()['Sample_id'] = f"{sample_id}"
+                self.get_functionality_dataframe_merged().to_csv(f"{SAVE_PATH}/counts_of_{name}_functionalities_{sample_id}.csv")
+        except:
+            pass
+    
+    
+    def create_functionality_transaction_dataframes(self, sample_id, input_dataframe, output_dataframe, name):
+        output_dataframe = copy.deepcopy(input_dataframe)
+        try:
+            output_dataframe.set_index('attributes.accession', inplace = True)
+        except:
+            print(f"No column with the title of attributes.relative_abundance in {name}")
+            return
+
+        output_dataframe = output_dataframe[['attributes.relative_abundance']]
+        output_dataframe = output_dataframe.transpose()
+        output_dataframe['Sample_id'] = f"{sample_id}"
+        output_dataframe.set_index('Sample_id', inplace = True)
+        output_dataframe.to_csv(f"{SAVE_PATH}/counts_of_{name}_functionalities_transactional_{sample_id}.csv")
+        self.set_functionality_dataframe_transaction(output_dataframe)
+    
+    def create_taxonomy_transaction_dataframes(self, sample_id, input_dataframe, output_dataframe, name, level, level_abundance):
+        output_dataframe = copy.deepcopy(input_dataframe)
+        output_dataframe.dropna(subset=[f'{level}'], inplace = True)
+        output_dataframe.drop_duplicates(f'{level}', inplace = True)
+        
+        try:
+            output_dataframe.set_index(f'{level}', inplace = True)
+        except:
+            return
+        
+        print(level)
+        output_dataframe = output_dataframe[[f'{level_abundance}']]
+        output_dataframe = output_dataframe.transpose()
+        output_dataframe['Sample_id'] = f"{sample_id}"
+        output_dataframe.set_index('Sample_id', inplace = True)
+        output_dataframe.to_csv(f"{SAVE_PATH}/counts_of_{name}_taxonomy_transactional_{sample_id}.csv")
+        self.set_taxonomy_dataframe_transaction(output_dataframe)
+            
+    
+    
+    def calculate_relative_abundance(self, input_dataframe, sample_id, name):
+        self.count_sums_df = input_dataframe['attributes.count'].sum()
+        for item in input_dataframe['attributes.accession'].unique():
+            input_dataframe.loc[input_dataframe['attributes.accession'] == f"{item}", 'attributes.relative_abundance'] = ((input_dataframe['attributes.count'] / self.count_sums_df) * 100).round(10)
+        input_dataframe.to_csv(f"{SAVE_PATH}/relative_abundance_of_{name}_{sample_id}.csv")
+        return input_dataframe
+    
+    def calculate_relative_abundance_multilevel(self, input_dataframe, sample_id, name):
+        input_dataframe.rename(columns={'attributes.count':'attributes_count'}, inplace = True)
+        for level in TAXONOMY_LEVELS:
+            if level in input_dataframe.columns:
+                for item in input_dataframe[f'{level}'].unique():
+                    try:
+                        input_dataframe.loc[input_dataframe[f'{level}'] == f"{item}", f'{level}_count'] = input_dataframe.groupby([f'{level}']).attributes_count.sum()[f'{item}']
+                    except:
+                        print('The taxon is unassigned or the values is missing')
+                self.count_sums_df = input_dataframe.groupby([f'{level}']).attributes_count.sum()
+                print(self.count_sums_df)
+                for item in input_dataframe[f'{level}'].unique():
+                    input_dataframe.loc[input_dataframe[f'{level}'] == f"{item}", f'{level}_relative_abundance'] = ((input_dataframe[f'{level}_count'] / self.count_sums_df.sum()) * 100).round(10)
+                    
+            else:
+                pass
+        input_dataframe.to_csv(f"{SAVE_PATH}/relative_abundance_of_{name}_{sample_id}.csv")
+        return input_dataframe
+    
+    '''
+    def merge_functionality_transaction_dataframes(self, input_dataframe, output_dataframe, name):
+        print(input_dataframe.shape)
+        print(input_dataframe.T.columns)
+        print(output_dataframe.shape)
+        output_dataframe = output_dataframe.merge(input_dataframe.T, how = 'outer')
+        output_dataframe.to_csv(f"{SAVE_PATH}/merged_counts_of{name}.csv")
     '''
         
+      
+
+instance_2 = Pull_selected_project()
+instance_2.pull_selected_data()
         
         
-        
-        #self.loop = asyncio.get_event_loop()
-        #self.profile_response = await self.Connect.pull_asynch_data("https://api.mg-rast.org/profile/mgm4447943.3?source=RefSeq&format=biom")
-        
-        #await self.set_profile_response(self.Connect.pull_asynch_data("https://api.mg-rast.org/profile/mgm4447943.3?source=RefSeq&format=biom"))
-        
-        
-        
-        #self.loop.run_until_complete(self.Connect.pull_asynch_data("https://api.mg-rast.org/profile/mgm4447943.3?source=RefSeq&format=biom"))   
-        
+
+
+
+
+
+
+
+
+
 '''
-        for item in self.get_metadata_dataframe()["data.metagenome_id.value"]:
-            print(f"{item}")
-            try:
-                with pd.ExcelWriter(f"{self.get_selected_project_id()}_profile_{self.get_metadata_dataframe()['data.metagenome_id.value']}_{self.get_projects.DATETIME_FORMAT}.xlsx") as writer:
-                    #self.set_profile_response(self.Connect.pull_data(f"https://api.mg-rast.org/annotation/sequence/{item}?type=function"))
-                    #self.set_profile_response(self.Connect.pull_asynch_data(f"https://api.mg-rast.org/profile/{item}?source=RefSeq&format=biom"))
-                    #print(type(self.get_profile_response()))
-                    #print(self.get_profile_response())
-                    self.set_profile_dataframe_merged(pd.json_normalize(self.get_profile_response()["samples"]))
-                    self.get_profile_dataframe_merged().to_excel(writer, sheet_name = f"{item}")
-            except:
-                print(f"Item {item} was skipped.")
+        
+        #MGYS00000518
+        for item in self.get_sample_id_list():
+            # Get all taxonomy data from all samples.
+            self.pull_profile_taxonomy(item, 'taxonomy', 'taxonomy')
+            self.set_taxonomy_dataframe_final(pd.concat([self.get_taxonomy_dataframe_final(), self.get_taxonomy_dataframe_merged()]))
+            self.get_taxonomy_dataframe_final().reset_index(drop = True, inplace=True)
+            if self.get_taxonomy_dataframe_final().shape[0] == 0:
+                break
+            else:
                 pass
-'''
+            #Placeholder for create_taxonomy_transaction_dataframes()
+        
+        if self.get_taxonomy_dataframe_final().shape[0] != 0:
+            self.get_taxonomy_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_taxonomy.csv")
+            #Placeholder to calculate relative abundance
+        else:
+            pass
+        
+        
+        self.set_taxonomy_dataframe_final(pd.DataFrame())
+        self.set_taxonomy_dataframe_merged(pd.DataFrame())
+        
+        
+        
+        for item in self.get_sample_id_list():
+            # Get all taxonomy ssu data from all samples.
+            self.pull_profile_taxonomy(item, 'taxonomy/ssu', 'taxonomy_ssu')
+            self.set_taxonomy_dataframe_final(pd.concat([self.get_taxonomy_dataframe_final(), self.get_taxonomy_dataframe_merged()]))
+            self.get_taxonomy_dataframe_final().reset_index(drop = True, inplace=True)
+            if self.get_taxonomy_dataframe_final().shape[0] == 0:
+                break
+            else:
+                pass
+            #Placeholder for create_taxonomy_transaction_dataframes()
+
+        if self.get_taxonomy_dataframe_final().shape[0] != 0:
+            self.get_taxonomy_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_taxonomy_ssu.csv")
+            #Placeholder to calculate relative abundance
+        else:
+            pass
+        
             
-'''
-    Load abundaces of a given metagenome_id
-'''
-             
-#instance = Pull_selected_project()
-#instance.pull_project_metadata()
-#instance.pull_profile_datasets()
-#print('finished')
-
-
-
-
-
-
-
-
-
-
-'''
-        for item in self.get_projects.get_unique_projects_df()['project_id']:
-            try:
-                self.set_metadata_response(self.Connect.pull_data(f"https://api.mg-rast.org/metadata/export/{item}"))
-
-                with pd.ExcelWriter(f"{item}_metadata_{self.get_projects.DATETIME_FORMAT}.xlsx") as writer:
-                    #self.set_metadata_dataframe_merged(pd.json_normalize(self.get_metadata_response()["samples"]))
-                    #self.set_metadata_dataframe(pd.json_normalize(self.get_metadata_response()["samples"], record_path=["libraries"]))
-                    #self.get_metadata_dataframe_merged().to_excel(writer, sheet_name = "samples") #####
-                    #self.get_metadata_dataframe().to_excel(writer, sheet_name = "libraries") #####
-                    #self.set_metadata_dataframe_merged(self.get_metadata_dataframe_merged().merge(self.get_metadata_dataframe(), how = 'outer'))
-                    self.set_metadata_dataframe_merged(pd.json_normalize(self.get_metadata_response()["samples"], record_path=["libraries"]))
-                    self.get_metadata_dataframe_merged().drop(list(self.get_metadata_dataframe_merged().filter(regex = ".*required.*|.*mixs.*|.*definition.*|.*unit.*|.*aliases.*|.*type.*|.*libraries.*")), axis = 1, inplace = True)
-                    self.get_metadata_dataframe_merged().dropna(how="all", axis=1, inplace=True)
-                    self.set_metadata_dataframe_merged(self.get_metadata_dataframe_merged().T.drop_duplicates(keep = "first").T)
-                    self.get_metadata_dataframe_merged().to_excel(writer, sheet_name = "samples_libraries")
-            except:
+        self.set_taxonomy_dataframe_final(pd.DataFrame())
+        self.set_taxonomy_dataframe_merged(pd.DataFrame())
+        
+        
+        
+        for item in self.get_sample_id_list():
+            # Get all taxonomy lsu data from all samples.
+            self.pull_profile_taxonomy(item, 'taxonomy/lsu', 'taxonomy_lsu')
+            self.set_taxonomy_dataframe_final(pd.concat([self.get_taxonomy_dataframe_final(), self.get_taxonomy_dataframe_merged()]))
+            self.get_taxonomy_dataframe_final().reset_index(drop = True, inplace=True)
+            if self.get_taxonomy_dataframe_final().shape[0] == 0:
+                break
+            else:
                 pass
+            #Placeholder for create_taxonomy_transaction_dataframes()
+            
+        if self.get_taxonomy_dataframe_final().shape[0] != 0:
+            self.get_taxonomy_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_taxonomy_lsu.csv")
+            #Placeholder to calculate relative abundance
+        else:
+            pass
+        
+        
+        self.set_taxonomy_dataframe_final(pd.DataFrame())
+        self.set_taxonomy_dataframe_merged(pd.DataFrame())
+        
+        
+            
+        for item in self.get_sample_id_list():
+            # Get all taxonomy unite data from all samples.
+            self.pull_profile_taxonomy(item, 'taxonomy/unite', 'taxonomy_unite')
+            self.set_taxonomy_dataframe_final(pd.concat([self.get_taxonomy_dataframe_final(), self.get_taxonomy_dataframe_merged()]))
+            self.get_taxonomy_dataframe_final().reset_index(drop = True, inplace=True)
+            if self.get_taxonomy_dataframe_final().shape[0] == 0:
+                break
+            else:
+                pass
+            #Placeholder for create_taxonomy_transaction_dataframes()
+
+        if self.get_taxonomy_dataframe_final().shape[0] != 0:
+            self.get_taxonomy_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_taxonomy_unite.csv")
+            #Placeholder to calculate relative abundance
+        else:
+            pass
+        
+            
+        self.set_taxonomy_dataframe_final(pd.DataFrame())
+        self.set_taxonomy_dataframe_merged(pd.DataFrame())
+        
+        
+        
+        for item in self.get_sample_id_list():
+            # Get all itsonedb data from all samples.
+            self.pull_profile_functionality(item, 'taxonomy/itsonedb', 'taxonomy_itsonedb')
+            self.set_taxonomy_dataframe_final(pd.concat([self.get_taxonomy_dataframe_final(), self.get_taxonomy_dataframe_merged()]))
+            self.get_taxonomy_dataframe_final().reset_index(drop = True, inplace=True)
+            if self.get_taxonomy_dataframe_final().shape[0] == 0:
+                break
+            else:
+                pass
+            #Placeholder for create_taxonomy_transaction_dataframes()
+
+        if self.get_taxonomy_dataframe_final().shape[0] != 0:
+            self.get_taxonomy_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_taxonomy_itsonedb.csv")
+            #Placeholder to calculate relative abundance
+        else:
+            pass
+            
+        self.set_taxonomy_dataframe_final(pd.DataFrame())
+        self.set_taxonomy_dataframe_merged(pd.DataFrame())
+        
+    
+        
+        for item in self.get_sample_id_list():
+            # Get all go-slim data from all samples.
+            self.pull_profile_functionality(item, 'go-slim', 'go_slim')
+            self.set_functionality_dataframe_final(pd.concat([self.get_functionality_dataframe_final(), self.get_functionality_dataframe_merged()]))
+            self.get_functionality_dataframe_final().reset_index(drop = True, inplace=True)
+            if self.get_functionality_dataframe_final().shape[0] == 0:
+                break
+            else:
+                pass
+            self.set_functionality_dataframe_merged(self.calculate_relative_abundance(self.get_functionality_dataframe_merged(), item, 'go-slim'))
+            #print(self.get_functionality_dataframe_merged()['attributes.relative_abundance'])
+            #self.create_functionality_transaction_dataframes(item, self.get_functionality_dataframe_merged(), self.get_functionality_dataframe_transaction(), 'go_slim') # may go under else
+            self.create_functionality_transaction_dataframes(item, self.get_functionality_dataframe_merged(), self.get_functionality_dataframe_transaction(), 'go_slim')
+            if self.functionality_dataframe_transaction_final.shape[0] == 0:
+                self.functionality_dataframe_transaction_final = self.get_functionality_dataframe_transaction()
+                #print(self.functionality_dataframe_transaction_final.shape)
+                #print(self.functionality_dataframe_transaction.shape)
+            else:
+                self.functionality_dataframe_transaction_final = self.functionality_dataframe_transaction_final.merge(self.get_functionality_dataframe_transaction(), how = 'outer')
+                #print(self.functionality_dataframe_transaction_final.shape)
+            
+        if self.get_functionality_dataframe_final().shape[0] != 0:
+            #self.calculate_relative_abundance(self.get_functionality_dataframe_merged(), self.get_functionality_dataframe_merged_final(), 'go_slim')
+            #self.calculate_relative_abundance(self.get_functionality_dataframe_final(), 'go_slim')
+            self.get_functionality_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_functionality_go_slim.csv") #swapped order
+            self.functionality_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_go_slim.csv")
+            
+        else:
+            pass
+        
+        self.set_functionality_dataframe_final(pd.DataFrame())
+        self.set_functionality_dataframe_merged(pd.DataFrame())
+        self.set_functionality_dataframe_transaction(pd.DataFrame())
+        self.set_functionality_dataframe_transaction_final(pd.DataFrame())
+        
+
+        self.calculate_relative_abundance(self.get_taxonomy_dataframe_merged(), self.get_taxonomy_dataframe_merged_final(), 'taxonomy')
+        self.calculate_relative_abundance(self.get_functionality_dataframe_merged(), self.get_functionality_dataframe_merged_final(), 'interpro_identifier')
+
+
+
+        
+        #self.get_taxonomy_dataframe_merged_final().to_csv(f"{SAVE_PATH}/relative_abundance_of_taxonomy.csv")
+        
+        try:
+            self.get_functionality_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_functionalities.csv")
+        except:
+            pass
+        
+        #self.get_functionality_dataframe_merged_final().to_csv(f"{SAVE_PATH}/relative_abundance_of_functionalities.csv")
+        
+        try:
+            self.get_functionality_dataframe_transaction_final().to_csv(f"{SAVE_PATH}/transactional_db_functionalities.csv")
+        except:
+            pass
 '''

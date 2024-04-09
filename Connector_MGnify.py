@@ -7,7 +7,7 @@ Created on Fri Jul 14 08:12:08 2023
 """
 
 import requests
-from requests.adapters import HTTPAdapter, Retry ###
+from requests.adapters import HTTPAdapter, Retry
 
 
 '''
@@ -43,7 +43,7 @@ class Connector:
                     raise
         
             if self.response.status_code == requests.codes.ok:
-                print(f"\nSuccessful request for the following URL:\n{self.url}.\n")
+                print(f"Successful request for the following URL:\n{self.url}.")
         
             try:
                 self.response.raise_for_status()

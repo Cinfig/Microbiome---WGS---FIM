@@ -13,9 +13,11 @@ import copy
 import sys
 import Connector_MGnify as Conn
 from pprint import pprint
+import os
 
 
 SAVE_PATH = "/Users/adamveszpremi/Desktop/MSc project work/Output_safety_copy"
+SAVE_PATH = os.getcwd()
 BIOMES = "https://www.ebi.ac.uk/metagenomics/api/v1/biomes"
 SEQ_METHOD = "https://www.ebi.ac.uk/metagenomics/api/v1/experiment-types"
 STUDY_LIST = "https://www.ebi.ac.uk/metagenomics/api/v1/studies"

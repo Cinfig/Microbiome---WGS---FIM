@@ -10,11 +10,12 @@ import pandas as pd
 import re
 from datetime import datetime
 import copy
+import sys
 import Connector_MGnify as Conn
 from pprint import pprint
 
 
-SAVE_PATH = "/Users/adamveszpremi/Desktop/MSc project work/Output"
+SAVE_PATH = "/Users/adamveszpremi/Desktop/MSc project work/Output_safety_copy"
 BIOMES = "https://www.ebi.ac.uk/metagenomics/api/v1/biomes"
 SEQ_METHOD = "https://www.ebi.ac.uk/metagenomics/api/v1/experiment-types"
 STUDY_LIST = "https://www.ebi.ac.uk/metagenomics/api/v1/studies"
@@ -25,6 +26,9 @@ pd.set_option('max_colwidth', 280)
 pd.set_option('display.width', 560)
 
 
+'''
+This class is used to pull all human-associated study data from the MGnify API based on the user's selection.
+'''
 class Pull_all_projects:
     
     def __init__(self):
@@ -161,10 +165,10 @@ class Pull_all_projects:
     
     
     '''
-    Pull all unique env_package values from the erver
+    Pull all unique biome categories from the MGnify API
     '''
     def pull_env_packages(self):
-        print('Pulling information, it may take some time.\n')
+        print('Pulling information from the MGnify API, it may take some time.\n')
         self.set_env_packages(self.Connect.pull_data(BIOMES))
         self.set_biomes_df(pd.json_normalize(self.get_env_packages()['data']))
         while self.get_env_packages()['links']['next'] is not None:
@@ -172,19 +176,23 @@ class Pull_all_projects:
             self.set_biomes_temp_df(pd.json_normalize(self.get_env_packages()['data']))
             self.set_biomes_df(pd.concat([self.get_biomes_df(), self.get_biomes_temp_df()]))
         self.get_biomes_df().reset_index(drop = True, inplace=True)
-        self.get_biomes_df().to_csv(f"{SAVE_PATH}/all_biomes_out.csv")
+        #self.get_biomes_df().to_csv(f"{SAVE_PATH}/all_biomes_out.csv")
+        #print("All biomes are saved. \n")
         self.filter_all_env_packages()
     
     '''
-    Filter for human-associated env_packages.
+    Filter for human-associated biome categories
     '''
     def filter_all_env_packages(self):
         for i, item in enumerate(self.biomes_df['id']):
             if re.search("human", f"({item.lower()}"):
                 self.get_matched_index_list().append(i)
         self.set_human_biomes_df(copy.deepcopy(self.get_biomes_df().iloc[self.get_matched_index_list()]))
+        self.get_human_biomes_df().reset_index(drop = True, inplace = True)
         self.get_human_biomes_df().to_csv(f"{SAVE_PATH}/human_biomes_out.csv")
-        print(self.get_human_biomes_df()[['attributes.biome-name', 'attributes.samples-count']])
+        print("\nAll human-associated biomes are saved. \n")
+        #print("All human-associated biomes are the following: \n")
+        #print(self.get_human_biomes_df()[['attributes.biome-name', 'attributes.samples-count']])
     
     
         
@@ -195,31 +203,37 @@ class Pull_all_projects:
         self.set_seq_methods(self.Connect.pull_data(SEQ_METHOD))
         self.set_seq_methods_df(pd.json_normalize(self.get_seq_methods()['data']))
         self.get_seq_methods_df().to_csv(f"{SAVE_PATH}/all_sequence_methods_out.csv")
-        print(self.seq_methods_df[['id', 'attributes.runs-count']])
+        print("\nAll sequence methods are saved. \n")
+        #print("All sequence methods are the following: \n")
+        #print(self.seq_methods_df[['id', 'attributes.runs-count']])
 
     
     '''
     Ask user to input the selected env_package and seq_method value/s. 
     '''
     def select_env_package_and_sequence_method(self):
-        self.pull_env_packages()
         self.pull_sequence_methods()
+        self.pull_env_packages()
         
-        print("\nAvailable human-associated env_packages are:\n")
-        pprint(self.get_human_biomes_df()['attributes.lineage'], width = 1000)
+        print("\nAvailable human-associated biomes are:\n")
+        for i, item in enumerate(self.get_human_biomes_df()['attributes.lineage']):
+            print(i, format(str(item), '>25'))
         
-        self.set_user_env_package_response(str(input("\nEnter a human-associated env_package name \n")))
-        while self.get_user_env_package_response() not in self.get_human_biomes_df()['attributes.lineage'].values.tolist():
-            self.set_user_env_package_response(str(input("Enter a valid human-associated env_package name \n")))
-        self.get_user_env_package_response_list().append(self.get_user_env_package_response())
+        self.set_user_env_package_response(int(input("\nEnter a human-associated biome's number\n")))
+        while self.get_user_env_package_response() not in self.get_human_biomes_df().index.values.tolist():
+            self.set_user_env_package_response(int(input("Enter a valid number \n")))
+        self.get_user_env_package_response_list().append(self.get_human_biomes_df().at[self.get_user_env_package_response(), 'attributes.lineage'])
         
-        print(f"\nAvailable seq_methods are: {self.seq_methods_df[['attributes.experiment-type']]} \n")
-        self.set_user_seq_method_response(str(input("Enter a seq_method name\n")))
-        while self.get_user_seq_method_response() not in self.get_seq_methods_df()['attributes.experiment-type'].values.tolist():
-            self.set_user_seq_method_response(str(input("Enter a valid seq_method name \n")))
-        self.get_user_seq_method_response_list().append(self.get_user_seq_method_response())
+        print("\nAvailable seq_methods are: \n")
+        for i, item in enumerate(self.seq_methods_df['attributes.experiment-type']):
+            print(i, format(str(item), '>25'))
+        
+        self.set_user_seq_method_response(int(input("\nEnter a seq_method's number\n")))
+        while self.get_user_seq_method_response() not in self.get_seq_methods_df().index.values.tolist():
+            self.set_user_seq_method_response(int(input("Enter a valid number \n")))
+        self.get_user_seq_method_response_list().append(self.get_seq_methods_df().at[self.get_user_seq_method_response(), 'id'])
         print('\nPulling more information, it may take some time.\n')
-    
+        
     
     '''
     Clean save and print merged dataframes.
@@ -237,20 +251,6 @@ class Pull_all_projects:
         print("All unique projects are the following: \n ")
         pprint(self.get_unique_projects_df(), width = 1000)
         
-    '''
-    Ask user to terminate or select a project for FIM
-    def ask_for_script_termination(self):
-        self.set_user_termination_response(str(input("\nIf you would you like to terminate this script, enter 'y' enter a project_id to select a project for FIM: \n")))
-        while (self.get_user_termination_response().lower() not in self.get_unique_projects_df()['project_id'].tolist()) and (self.get_user_termination_response().lower() != "y"):
-            self.set_user_termination_response(str(input("Please enter a valid input: 'y' or a 'project_id': \n")))
-        if self.get_user_termination_response().lower() == "y":
-            print("\nScript is terminated\n")
-            sys.exit(0)
-        elif self.get_user_termination_response().lower() in self.get_unique_projects_df()['project_id'].tolist():
-            pass
-        else:
-            pass
-    '''
             
     '''
     It pulls all metadata based on the user's previous input'
@@ -259,10 +259,10 @@ class Pull_all_projects:
         
         self.select_env_package_and_sequence_method()
         for package in self.get_user_env_package_response_list():
-            print(package)
             self.set_project_metadata_dict(self.Connect.pull_data(f"https://www.ebi.ac.uk/metagenomics/api/v1/biomes/{package}/studies"))
             
             self.set_project_metadata_df_merged(pd.json_normalize(self.get_project_metadata_dict()['data']))
+
             
             while self.get_project_metadata_dict()['links']['next'] is not None:                        
                 self.set_project_metadata_dict(self.Connect.pull_data(self.get_project_metadata_dict()['links']['next']))
@@ -271,13 +271,17 @@ class Pull_all_projects:
             self.get_project_metadata_df_merged().reset_index(drop = True, inplace=True)
 
             
-            n = 0
-            print(len(self.get_project_metadata_df_merged()['id']))
+            if len(self.get_project_metadata_df_merged().columns) == 0:
+                   print(f"The combination of {self.get_user_env_package_response_list()[0]} and {self.get_user_seq_method_response_list()[0]} has no result.")
+                   print("Try a different biome and sequencing method combination")
+                   sys.exit(0)
+            
+            n = 0     
             while n < len(self.get_project_metadata_df_merged()['id']):
-                print(self.get_project_metadata_df_merged()['id'][n])
+                print(f"\nProject ID: {self.get_project_metadata_df_merged()['id'][n]}")
                 try:
                     self.set_check_selected_seq_method_dict(self.Connect.pull_data(f"https://www.ebi.ac.uk/metagenomics/api/v1/studies/{self.project_metadata_df_merged['id'][n]}/analyses"))
-                    print(self.get_check_selected_seq_method_dict()['data'][0]['attributes']['experiment-type'])
+                    print(f"Experiment type: {self.get_check_selected_seq_method_dict()['data'][0]['attributes']['experiment-type']}\n")
                     if self.get_check_selected_seq_method_dict()['data'][0]['attributes']['experiment-type'] == 'metagenomic':
                         pass
                     else:
@@ -287,12 +291,14 @@ class Pull_all_projects:
                     pass
                 n = n + 1
             self.get_project_metadata_df_merged().drop(self.get_project_metadata_df_merged_droplist(), inplace = True)
-
+            self.get_project_metadata_df_merged().reset_index(drop = True, inplace=True)
             self.get_project_metadata_df_merged().to_csv(f"{SAVE_PATH}/selected_human_biomes_out.csv")
             if self.get_project_metadata_df_merged().shape[0] == 0:
                 print('The saved dataframe is empty, there is no study which fulfills the selected criteria')
             else:
-                print(self.get_project_metadata_df_merged()[['id', 'attributes.study-name']])
+                print(f"The following projects are available wih biome '{self.get_user_env_package_response_list()[0]}' and experiment type '{self.get_user_seq_method_response_list()[0]}':\n")
+                for item in self.get_project_metadata_df_merged().index:
+                    print(self.get_project_metadata_df_merged().at[item, 'id'], format(self.get_project_metadata_df_merged().at[item, 'attributes.study-name'], '>5'))
             
            
    

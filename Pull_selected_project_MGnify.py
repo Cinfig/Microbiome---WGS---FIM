@@ -398,9 +398,3 @@ class Pull_selected_project:
 
 pull_instance = Pull_selected_project()
 pull_instance.pull_selected_data()
-
-
-
-
-        
-#MGYS00000465

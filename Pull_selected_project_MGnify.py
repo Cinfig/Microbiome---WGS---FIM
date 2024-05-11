@@ -13,8 +13,7 @@ import sys
 import os
 
 
-SAVE_PATH = "/Users/adamveszpremi/Desktop/MSc project work/Output_safety_copy"
-#SAVE_PATH = os.getcwd()
+SAVE_PATH = os.getcwd()
 TAXONOMY_LEVELS = ['attributes.domain', 'attributes.hierarchy.phylum', 'attributes.hierarchy.class', 'attributes.hierarchy.order', 'attributes.hierarchy.family', 'attributes.hierarchy.genus', 'attributes.hierarchy.species']
 TAXONOMY_LEVELS_COUNTS = ['attributes.domain_count', 'attributes.hierarchy.phylum_count', 'attributes.hierarchy.class_count', 'attributes.hierarchy.order_count', 'attributes.hierarchy.family_count', 'attributes.hierarchy.genus_count', 'attributes.hierarchy.species_count']
 TAXONOMY_LEVEL_NAMES = ['domain','kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
@@ -403,9 +402,3 @@ class Pull_selected_project:
 
 pull_instance = Pull_selected_project()
 pull_instance.pull_selected_data()
-
-
-
-
-        
-#MGYS00000465

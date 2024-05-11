@@ -13,12 +13,13 @@ import sys
 import os
 
 
-SAVE_PATH = os.getcwd()
+SAVE_PATH = "/Users/adamveszpremi/Desktop/MSc project work/Output_safety_copy"
+#SAVE_PATH = os.getcwd()
 TAXONOMY_LEVELS = ['attributes.domain', 'attributes.hierarchy.phylum', 'attributes.hierarchy.class', 'attributes.hierarchy.order', 'attributes.hierarchy.family', 'attributes.hierarchy.genus', 'attributes.hierarchy.species']
 TAXONOMY_LEVELS_COUNTS = ['attributes.domain_count', 'attributes.hierarchy.phylum_count', 'attributes.hierarchy.class_count', 'attributes.hierarchy.order_count', 'attributes.hierarchy.family_count', 'attributes.hierarchy.genus_count', 'attributes.hierarchy.species_count']
 TAXONOMY_LEVEL_NAMES = ['domain','kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
 FUNCTIONALITY_NAMES = ['go-slim', 'go-terms', 'antismash-gene-clusters', 'genome-properties', 'interpro-identifiers']
-
+ANSWER_LIST = ['y', 'n']
 
 class Pull_selected_project:
     
@@ -32,6 +33,7 @@ class Pull_selected_project:
         self.sample_id_list = []
         self.taxonomy_response = ""
         self.functionality_response = ""
+        self.missing_or_unassigned_taxon = ""
         self.taxonomy_dataframe = pd.DataFrame()
         self.taxonomy_dataframe_merged = pd.DataFrame()
         self.taxonomy_dataframe_merged_final = pd.DataFrame()
@@ -44,8 +46,8 @@ class Pull_selected_project:
         self.functionality_dataframe_final = pd.DataFrame()
         self.functionality_dataframe_transaction = pd.DataFrame()
         self.functionality_dataframe_transaction_final = pd.DataFrame()
-        self.unique_sample_ids = []
         self.count_sums_df = pd.DataFrame()
+        self.unique_sample_ids = []
         
 
     '''
@@ -182,7 +184,7 @@ class Pull_selected_project:
                 self.functionality_dataframe_transaction_final = self.functionality_dataframe_transaction_final.merge(self.get_functionality_dataframe_transaction(), how = 'outer')
                     
             if self.get_functionality_dataframe_final().shape[0] != 0:
-                self.get_functionality_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_functionality_{save_id}.csv")
+                #self.get_functionality_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_functionality_{save_id}.csv")
                 self.functionality_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_{save_id}.csv")
             else:
                 pass
@@ -212,7 +214,7 @@ class Pull_selected_project:
                 self.taxonomy_dataframe_transaction_final = self.taxonomy_dataframe_transaction_final.merge(self.get_taxonomy_dataframe_transaction(), how = 'outer')
                 
             if self.get_taxonomy_dataframe_final().shape[0] != 0:
-                self.get_taxonomy_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_taxonomy_{save_id}.csv")
+                #self.get_taxonomy_dataframe_final().to_csv(f"{SAVE_PATH}/counts_of_taxonomy_{save_id}.csv")
                 self.taxonomy_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_{save_id}.csv")
             else:
                 pass
@@ -226,6 +228,7 @@ class Pull_selected_project:
     It calculates relative abundance for taxonmy counts.
     '''
     def calculate_relative_abundance_multilevel(self, input_dataframe, sample_id, name):
+        self.missing_or_unassigned_taxon = 0
         input_dataframe.rename(columns={'attributes.count':'attributes_count'}, inplace = True)
         for level in TAXONOMY_LEVELS:
             if level in input_dataframe.columns:
@@ -233,14 +236,14 @@ class Pull_selected_project:
                     try:
                         input_dataframe.loc[input_dataframe[f'{level}'] == f"{item}", f'{level}_count'] = input_dataframe.groupby([f'{level}']).attributes_count.sum()[f'{item}']
                     except:
-                        print('The taxon is unassigned or the values is missing')
+                        self.missing_or_unassigned_taxon += 1
                 self.count_sums_df = input_dataframe.groupby([f'{level}']).attributes_count.sum()
                 #print(self.count_sums_df)
                 for item in input_dataframe[f'{level}'].unique():
                     input_dataframe.loc[input_dataframe[f'{level}'] == f"{item}", f'{level}_relative_abundance'] = ((input_dataframe[f'{level}_count'] / self.count_sums_df.sum()) * 100).round(10)
-                    
             else:
                 pass
+            print(f'The total number of unassigned taxon and taxon without a value is {self.missing_or_unassigned_taxon}')  
         input_dataframe.to_csv(f"{SAVE_PATH}/relative_abundance_of_{name}_{sample_id}.csv")
         return input_dataframe
     
@@ -264,21 +267,24 @@ class Pull_selected_project:
         self.set_selected_project_id(str(input("Enter a study ID below:\n")))
         self.set_metadata_response(self.Connect.pull_data(f"https://www.ebi.ac.uk/metagenomics/api/v1/studies/{self.get_selected_project_id()}/analyses"))
         
-        print(f"Taxonomy level names are:\n {TAXONOMY_LEVEL_NAMES}\n")
+        print(f"\nTaxonomy level names are:\n {TAXONOMY_LEVEL_NAMES}\n")
         print(f"Functionality names are:\n {FUNCTIONALITY_NAMES}\n")
-        self.set_user_input(str(input("Enter a taxonomy level or a functionality type below.\nAvailable options are found above.\n")))
+        self.set_user_input(str(input("Enter a taxonomy level or a functionality type below.\nAvailable options are found above.\n\n")))
         while (self.get_user_input() not in TAXONOMY_LEVEL_NAMES) & (self.get_user_input() not in FUNCTIONALITY_NAMES):
-            self.set_user_input(str(input("Enter valid taxonomy levels and\or functionality types below.\n")))
+            self.set_user_input(str(input("Enter valid taxonomy levels and\or functionality types below.\n\n")))
         
         self.set_user_input_list(self.get_user_input())
         
         self.set_user_input_second(str(input("Would you like to add an additional taxonomy level or a functionality type?\n Enter 'y' for yes or 'n' for no.\n\n")))
-        while self.get_user_input_second() != 'n':
+        while self.get_user_input_second() not in  ANSWER_LIST:
+            self.set_user_input_second(str(input("Enter a valid answer: 'y' for yes or 'n' for no.\n\n")))
+            if self.get_user_input_second() == 'n':
+                break
             self.set_user_input(str(input("Enter a taxonomy level or a functionality type below.\nAvailable options are found above.\n\n")))
             while (self.get_user_input() not in TAXONOMY_LEVEL_NAMES) & (self.get_user_input() not in FUNCTIONALITY_NAMES):
-                self.set_user_input(str(input("Enter valid taxonomy levels and\or functionality types below.\n")))
+                self.set_user_input(str(input("Enter valid taxonomy levels and\or functionality types below.\n\n")))
             self.set_user_input_list(self.get_user_input()) 
-            self.set_user_input_second(str(input("Would you like to add an additional taxonomy level or a functionality type?\n Enter 'y' for yes or 'n' for no.\n\n")))
+            self.set_user_input_second(str(input("Would you like to add an additional taxonomy level or a functionality type?\nEnter 'y' for yes or 'n' for no.\n\n")))
         
         
         
@@ -292,10 +298,10 @@ class Pull_selected_project:
         
         
         if len(self.get_user_input_list()) == 1:
-            if str(self.get_user_input_list()) in TAXONOMY_LEVEL_NAMES:
-                self.create_taxonomy_transaction_databases('taxonomy', f'taxonomy_{str(self.get_user_input_list()).lower()}', f'attributes.hierarchy.{str(self.get_user_input_list()).lower()}', f'attributes.hierarchy.{str(self.get_user_input_list()).lower()}_relative_abundance')
-            elif str(self.get_user_input_list()) in FUNCTIONALITY_NAMES:
-                self.create_functionality_transacation_databases(f"{self.get_user_input_list()}", f"{self.get_user_input_list()}")
+            if str(self.get_user_input_list()[0]) in TAXONOMY_LEVEL_NAMES:
+                self.create_taxonomy_transaction_databases('taxonomy', f'taxonomy_{str(self.get_user_input_list()[0]).lower()}', f'attributes.hierarchy.{str(self.get_user_input_list()[0]).lower()}', f'attributes.hierarchy.{str(self.get_user_input_list()[0]).lower()}_relative_abundance')
+            elif str(self.get_user_input_list()[0]) in FUNCTIONALITY_NAMES:
+                self.create_functionality_transacation_databases(f"{self.get_user_input_list()[0]}", f"{self.get_user_input_list()[0]}")
             else:
                 sys.exit(0)
                 
@@ -326,7 +332,7 @@ class Pull_selected_project:
                     self.set_taxonomy_dataframe_merged(pd.concat([self.get_taxonomy_dataframe_merged(), self.get_taxonomy_dataframe()]))
                 self.get_taxonomy_dataframe_merged()['Sample_id'] = f"{sample_id}"
                 self.get_taxonomy_dataframe_merged().reset_index(drop = True, inplace=True)
-                self.get_taxonomy_dataframe_merged().to_csv(f"{SAVE_PATH}/counts_of_{save_name}_{sample_id}.csv")
+                #self.get_taxonomy_dataframe_merged().to_csv(f"{SAVE_PATH}/counts_of_{save_name}_{sample_id}.csv")
         except:
             pass
 
@@ -347,7 +353,7 @@ class Pull_selected_project:
                     self.set_functionality_dataframe_merged(pd.concat([self.get_functionality_dataframe_merged(), self.get_functionality_dataframe()]))
                 self.get_functionality_dataframe_merged().reset_index(drop = True, inplace=True)
                 self.get_functionality_dataframe_merged()['Sample_id'] = f"{sample_id}"
-                self.get_functionality_dataframe_merged().to_csv(f"{SAVE_PATH}/counts_of_{name}_functionalities_{sample_id}.csv")
+                #self.get_functionality_dataframe_merged().to_csv(f"{SAVE_PATH}/counts_of_{name}_functionalities_{sample_id}.csv")
         except:
             pass
     
@@ -397,3 +403,9 @@ class Pull_selected_project:
 
 pull_instance = Pull_selected_project()
 pull_instance.pull_selected_data()
+
+
+
+
+        
+#MGYS00000465

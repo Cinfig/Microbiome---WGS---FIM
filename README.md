@@ -23,21 +23,28 @@ The following relevant files are use the MGnify and other API:
    How to use it - step-by-step guide:
    
       a, Download 'Connector_Mgnify.py' and 'Pull_all_projects_MGnify.py' into the same folder. Files will be saved in the same folder.
+   
       b, Go to that folder in the terminal.
-      c, Run the Pull_all_projects_MGnify.py by entering 'python Pull_all_projects_MGnify.py' 
-      d, Interactively select a human biome type, for example, 47 for root:Host-associated:Human:Skin) in the console. 
+   
+      c, Run the Pull_all_projects_MGnify.py by entering 'python Pull_all_projects_MGnify.py'
+   
+      d, Interactively select a human biome type, for example, 47 for root:Host-associated:Human:Skin) in the console.
+   
       e, Interactively select the experiment type, for example, 5 for metagenomic. Please note that the script was only tested with the    
          'metagenomic' experiment type as that experiment type is in the main focus.
 
-3. Pull_selected_project_MGnify.py
+4. Pull_selected_project_MGnify.py
    
    This module pulls project data based on a selected project ID, a selected taxonomy levels and/or functionality categoryies.
 
    How to use it - step-by-step guide:
    
       a, Download 'Pull_selected_project_MGnify.py'.
+   
       b, Download 'Connector_Mgnify.py' if you skipped point 2 above.
+   
       c, Enter a study ID, for example, 'MGYS00000465'.
+   
       d, Enter a taxonomy level or functionaltity from the printed options:
 
          Taxonomy level names are:
@@ -86,7 +93,7 @@ The following relevant files are use the MGnify and other API:
             In case "go-slim" functionality was selected:
                "final_transaction_dataset_go-slim.csv"
 
-4. Connect_species_with_functionality.py
+6. Connect_species_with_functionality.py
    
       This python module has 3 functions and after launching the script the user need to select which function to run.
    
@@ -109,7 +116,7 @@ The following relevant files are use the MGnify and other API:
 
          -'2' to establish all proved species and functionalities combinations present in our selected study\n \
          -'3' to create a transactional database considering species and functionalities present in each sample of the study")))
-5. Mine.py
+7. Mine.py
 
 
 

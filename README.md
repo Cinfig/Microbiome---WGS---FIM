@@ -33,7 +33,7 @@ The following relevant files are use the MGnify and other API:
       e, Interactively select the experiment type, for example, 5 for metagenomic. Please note that the script was only tested with the    
          'metagenomic' experiment type as that experiment type is in the main focus.
 
-4. Pull_selected_project_MGnify.py
+3. Pull_selected_project_MGnify.py
    
    This module pulls project data based on a selected project ID, a selected taxonomy levels and/or functionality categoryies.
 
@@ -93,7 +93,7 @@ The following relevant files are use the MGnify and other API:
             In case "go-slim" functionality was selected:
                "final_transaction_dataset_go-slim.csv"
 
-6. Connect_species_with_functionality.py
+4. Connect_species_with_functionality.py
    
       This python module has 3 functions and after launching the script the user need to select which function to run.
    
@@ -130,10 +130,27 @@ The following relevant files are use the MGnify and other API:
 
                Output files:
 
-                     'goname_goid_df.csv': This file contains the all possible species ID and functionality combinations.
+                     'goname_goid_df.csv': This file contains go functionality ID and go functionality name pairs. 
+
+                     'taxon_functionality_matrix.csv': This file contains the all possible species ID and functionality combinations.
    
-   o establish all proved species and functionalities combinations present in our selected study\n \
-         -'3' to create a transactional database considering species and functionalities present in each sample of the study")))
+         -'3' create_taxonomy_and_functionality_transaction_dataframes(): This function creates a transactional database considering species and functionalities present in each sample.
+
+               Input files:
+
+                     'species_and_id_df.csv': This file is the output of the first function.
+
+                     'taxon_functionality_matrix.csv': This file is the output of the above-mentioned function.
+
+                     'final_transaction_dataset_taxonomy_species.csv': This file is the output of step 3.
+
+                     'final_transaction_dataset_go-slim.csv': This file is the output of step 3.
+
+               Output files:
+
+                      'taxon_functionality_matrix_final.csv': 
+
+                     
 8. Mine.py
 
 

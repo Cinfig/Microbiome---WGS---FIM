@@ -242,7 +242,7 @@ class Pull_selected_project:
                     input_dataframe.loc[input_dataframe[f'{level}'] == f"{item}", f'{level}_relative_abundance'] = ((input_dataframe[f'{level}_count'] / self.count_sums_df.sum()) * 100).round(10)
             else:
                 pass
-            print(f'The total number of unassigned taxon and taxon without a value is {self.missing_or_unassigned_taxon}')  
+        print(f'The total number of unassigned taxon and taxon without a value is {self.missing_or_unassigned_taxon}')  
         input_dataframe.to_csv(f"{SAVE_PATH}/relative_abundance_of_{name}_{sample_id}.csv")
         return input_dataframe
     
@@ -275,10 +275,7 @@ class Pull_selected_project:
         self.set_user_input_list(self.get_user_input())
         
         self.set_user_input_second(str(input("Would you like to add an additional taxonomy level or a functionality type?\n Enter 'y' for yes or 'n' for no.\n\n")))
-        while self.get_user_input_second() not in  ANSWER_LIST:
-            self.set_user_input_second(str(input("Enter a valid answer: 'y' for yes or 'n' for no.\n\n")))
-            if self.get_user_input_second() == 'n':
-                break
+        while self.get_user_input_second() == 'y':
             self.set_user_input(str(input("Enter a taxonomy level or a functionality type below.\nAvailable options are found above.\n\n")))
             while (self.get_user_input() not in TAXONOMY_LEVEL_NAMES) & (self.get_user_input() not in FUNCTIONALITY_NAMES):
                 self.set_user_input(str(input("Enter valid taxonomy levels and\or functionality types below.\n\n")))

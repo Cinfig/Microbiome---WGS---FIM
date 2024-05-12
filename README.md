@@ -114,7 +114,9 @@ The following relevant files are use the MGnify and other API:
 
                      'species_and_id_df.csv': This file contains the species name and ID pairs and the type of the match: exact or not exact.
 
-         -'2' connect_taxon_id_and_functionality_id(): This function establishes all possible species and functionalities combinations based on species/functionalities present in the                                                         selected study. The runtime of the function can be extremely long due to multiple API requests.
+         -'2' connect_taxon_id_and_functionality_id(): This function establishes all possible species and functionalities combinations based on species/functionalities present in the                                                         selected study. The runtime of the function can be extremely long due to multiple API requests.The following QucikGO API is used:
+
+                                                       https://www.ebi.ac.uk/QuickGO/api/index.html#!/annotations/annotationLookupUsingGET
 
                Input files:
 

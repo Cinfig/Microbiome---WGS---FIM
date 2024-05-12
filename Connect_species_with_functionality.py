@@ -14,7 +14,6 @@ from warnings import simplefilter
 
 simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 SAVE_PATH = os.getcwd()
-SAVE_PATH = "/Users/adamveszpremi/Desktop/MSc project work/Output_safety_copy"
 ANSWER_LIST = ['1', '2', '3', 'q']
 
 class Connect_species_functionality:
@@ -356,37 +355,7 @@ class Connect_species_functionality:
         
         self.taxon_functionality_matrix_final.to_csv(f"{SAVE_PATH}/taxon_functionality_matrix_final.csv")
         
-                    
-                
             
-            
-        #print(self.species_list_final)
-        #print(len(self.species_list_final))
-        #print(self.functionality_list)
-        #print(len(self.functionality_list))
-                    
-                    
-            #    if str(self.thing).split('_')[0] not in 
-        #print(self.species_list)
-        #print(self.functionality_list)
-        #for self.j, self.thing in enumerate(self.species_list):
-        #    if self.thing == "nan":
-        #        print("yes")
-'''
-Taxon functionality matrix
-    - rows:  GO:0030031
-    - columns: Sufflavibacter maritimus_399943
-    - value : True
-Species transactional df:
-    - rows: Sample number
-    - columns: Sufflavibacter maritimus
-Go-slim transactional dataset:
-    - rows: Sample number
-    - columns: GO:0030033
-'''
-
-#self.set_splitted_species(str(self.get_species_and_id_df().at[self.i, 'species']).split(' '))          
-          
 
 connect_instance = Connect_species_functionality()
 user_reply = (str(input("Please enter the number/letter of the function you would like to run:\n\n \
@@ -405,5 +374,3 @@ if user_reply == '2':
     connect_instance.connect_taxon_id_and_functionality_id()
 if user_reply == '3':
     connect_instance.create_taxonomy_and_functionality_transaction_dataframes()
-
-

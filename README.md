@@ -1,15 +1,16 @@
 # Microbiome---WGS---FIM
 This repository implements a frequent itemset mining tool to mine relative abundances of whole genome sequencing (WGS) studies from the MGnify database.
 
-The following relevant files are use the MGnify API:
+The following relevant files are use the MGnify and other API:
 
 - Connector_MGnify.py
 - Pull_all_projects_MGnify.py
 - Pull_selected_project_MGnify.py
+- Connect_species_with_functionality.py
 - Mine.py
 
 1. Connector_Mgnify.py
-This module sets up the connection with the MGnify API to be able to pull data.
+   This module sets up the connection with the MGnify API to be able to pull data.
    
 2. Pull_all_projects_MGnify.py
    This modul pulls all project data based on the interactively selected human biome type and experiment type.
@@ -74,8 +75,29 @@ This module sets up the connection with the MGnify API to be able to pull data.
    
             In case "go-slim" functionality was selected:
                "final_transaction_dataset_go-slim.csv"
+
+4. Connect_species_with_functionality.py
+      This python module has 3 functions and after launching the script the user need to select which function to run.
+         '1' find_species_id(): This function connects the species names of the species data exported from MGnify to the species ID. Firstly, the script looks for exact name match,                                       secondly it looks for the '.sp' not exact name match, and ifnally it looks for the not exact match based on the species' genus name.
    
-5. Mine.py
+               Input files:
+   
+                     names.csv: This file is a database dump of the species_names-species_ID pairs from NCBI. This file can be to be obtained the following way:
+                           Download the taxdump.tar.Z from 'https://ftp.ncbi.nih.gov/pub/taxonomy/'.
+                           Rename the file 'names.dmp' to 'names.csv'.
+                           Copy 'names.csv' and paste it into the folder of this script.
+
+                     final_transaction_dataset_taxonomy_species.csv: This is the output of step 3.
+
+                     The 'Connect_species_with_functionality.py' python module and the two input files need to be in the same folder.
+
+               Output files:
+
+                     species_and_id_df.csv: This file contains the species name and ID pairs and the type of the match: exact or not exact.
+
+         '2' to establish all proved species and functionalities combinations present in our selected study\n \
+         '3' to create a transactional database considering species and functionalities present in each sample of the study")))
+6. Mine.py
 
 
 

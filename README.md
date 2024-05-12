@@ -78,7 +78,8 @@ The following relevant files are use the MGnify and other API:
 
 4. Connect_species_with_functionality.py
       This python module has 3 functions and after launching the script the user need to select which function to run.
-         '1' find_species_id(): This function connects the species names of the species data exported from MGnify to the species ID. Firstly, the script looks for exact name match,                                       secondly it looks for the '.sp' not exact name match, and ifnally it looks for the not exact match based on the species' genus name.
+   
+         -'1' find_species_id(): This function connects the species names of the species data exported from MGnify to the species ID. Firstly, the script looks for exact name match,                                       secondly it looks for the '.sp' not exact name match, and ifnally it looks for the not exact match based on the species' genus name.
    
                Input files:
    
@@ -95,8 +96,8 @@ The following relevant files are use the MGnify and other API:
 
                      species_and_id_df.csv: This file contains the species name and ID pairs and the type of the match: exact or not exact.
 
-         '2' to establish all proved species and functionalities combinations present in our selected study\n \
-         '3' to create a transactional database considering species and functionalities present in each sample of the study")))
+         -'2' to establish all proved species and functionalities combinations present in our selected study\n \
+         -'3' to create a transactional database considering species and functionalities present in each sample of the study")))
 6. Mine.py
 
 

@@ -1,0 +1,117 @@
+,type,id,attributes.accession,attributes.count,attributes.description,attributes.lineage,links.self,Sample_id,attributes.relative_abundance
+0,go-terms,GO:0030031,GO:0030031,0,cell projection assembly,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0030031,MGYA00005305,0.0
+1,go-terms,GO:0071554,GO:0071554,6056,cell wall organization or biogenesis,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0071554,MGYA00005305,0.064741235
+2,go-terms,GO:0016043,GO:0016043,26450,cellular component organization,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016043,MGYA00005305,0.2827618337
+3,go-terms,GO:0051301,GO:0051301,10007,cell division,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0051301,MGYA00005305,0.106979118
+4,go-terms,GO:0016049,GO:0016049,0,cell growth,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016049,MGYA00005305,0.0
+5,go-terms,GO:0048870,GO:0048870,1648,cell motility,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0048870,MGYA00005305,0.0176178262
+6,go-terms,GO:0032196,GO:0032196,19621,transposition,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0032196,MGYA00005305,0.2097568975
+7,go-terms,GO:0006811,GO:0006811,97098,ion transport,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006811,MGYA00005305,1.0380192261
+8,go-terms,GO:0009306,GO:0009306,2736,protein secretion,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009306,MGYA00005305,0.0292490124
+9,go-terms,GO:0006810,GO:0006810,352910,transport,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006810,MGYA00005305,3.7727591205
+10,go-terms,GO:0046034,GO:0046034,13486,ATP metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0046034,MGYA00005305,0.1441711187
+11,go-terms,GO:0009058,GO:0009058,630911,biosynthetic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009058,MGYA00005305,6.7447089328
+12,go-terms,GO:0005975,GO:0005975,340697,carbohydrate metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005975,MGYA00005305,3.6421969173
+13,go-terms,GO:0009056,GO:0009056,64956,catabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009056,MGYA00005305,0.6944074734
+14,go-terms,GO:0006520,GO:0006520,190038,cellular amino acid metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006520,MGYA00005305,2.0315876505
+15,go-terms,GO:0045333,GO:0045333,1118,cellular respiration,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0045333,MGYA00005305,0.0119518991
+16,go-terms,GO:0051186,GO:0051186,62885,cofactor metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0051186,MGYA00005305,0.672267596
+17,go-terms,GO:0006259,GO:0006259,211022,DNA metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006259,MGYA00005305,2.2559156021
+18,go-terms,GO:0022900,GO:0022900,714,electron transport chain,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0022900,MGYA00005305,0.0076329659
+19,go-terms,GO:0006091,GO:0006091,31990,generation of precursor metabolites and energy,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006091,MGYA00005305,0.3419868076
+20,go-terms,GO:0046039,GO:0046039,384,GTP metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0046039,MGYA00005305,0.0041051245
+21,go-terms,GO:0006629,GO:0006629,53802,lipid metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006629,MGYA00005305,0.5751664339
+22,go-terms,GO:0006807,GO:0006807,763020,nitrogen compound metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006807,MGYA00005305,8.1570107509
+23,go-terms,GO:0071941,GO:0071941,163,nitrogen cycle metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0071941,MGYA00005305,0.0017425398
+24,go-terms,GO:0009117,GO:0009117,58456,nucleotide metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009117,MGYA00005305,0.6249196882
+25,go-terms,GO:0055114,GO:0055114,215579,oxidation-reduction process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0055114,MGYA00005305,2.3046318847
+26,go-terms,GO:0016310,GO:0016310,37481,phosphorylation,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016310,MGYA00005305,0.4006879505
+27,go-terms,GO:0015979,GO:0015979,3038,photosynthesis,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0015979,MGYA00005305,0.0324775218
+28,go-terms,GO:0019538,GO:0019538,257931,protein metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0019538,MGYA00005305,2.7573929124
+29,go-terms,GO:0016070,GO:0016070,279258,RNA metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016070,MGYA00005305,2.9853876809
+30,go-terms,GO:0044281,GO:0044281,394419,small molecule metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0044281,MGYA00005305,4.2165081169
+31,go-terms,GO:0006790,GO:0006790,25893,sulfur compound metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006790,MGYA00005305,0.276807265
+32,go-terms,GO:0009404,GO:0009404,520,toxin metabolic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009404,MGYA00005305,0.0055590228
+33,go-terms,GO:0006351,GO:0006351,116940,"transcription, DNA-templated",biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006351,MGYA00005305,1.2501387083
+34,go-terms,GO:0006412,GO:0006412,141556,translation,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006412,MGYA00005305,1.5132942962
+35,go-terms,GO:0007154,GO:0007154,70987,cell communication,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0007154,MGYA00005305,0.7588814476
+36,go-terms,GO:0006935,GO:0006935,1667,chemotaxis,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006935,MGYA00005305,0.0178209443
+37,go-terms,GO:0006950,GO:0006950,54559,response to stress,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0006950,MGYA00005305,0.5832590883
+38,go-terms,GO:0007165,GO:0007165,62814,signal transduction,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0007165,MGYA00005305,0.6715085755
+39,go-terms,GO:0000160,GO:0000160,42390,phosphorelay signal transduction system,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0000160,MGYA00005305,0.4531672639
+40,go-terms,GO:0000902,GO:0000902,3906,cell morphogenesis,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0000902,MGYA00005305,0.0417568137
+41,go-terms,GO:0000746,GO:0000746,2425,conjugation,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0000746,MGYA00005305,0.0259242891
+42,go-terms,GO:0042592,GO:0042592,11216,homeostatic process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0042592,MGYA00005305,0.119903846
+43,go-terms,GO:0002376,GO:0002376,30,immune system process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0002376,MGYA00005305,0.0003207129
+44,go-terms,GO:0009405,GO:0009405,1183,pathogenesis,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009405,MGYA00005305,0.0126467769
+45,go-terms,GO:0043934,GO:0043934,5349,sporulation,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0043934,MGYA00005305,0.057183102
+46,go-terms,GO:0044403,GO:0044403,13199,"symbiosis, encompassing mutualism through parasitism",biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0044403,MGYA00005305,0.1411029657
+47,go-terms,GO:0016032,GO:0016032,20818,viral process,biological_process,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016032,MGYA00005305,0.2225533404
+48,go-terms,GO:0042575,GO:0042575,3376,DNA polymerase complex,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0042575,MGYA00005305,0.0360908866
+49,go-terms,GO:0016469,GO:0016469,13671,proton-transporting two-sector ATPase complex,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016469,MGYA00005305,0.146148848
+50,go-terms,GO:0005840,GO:0005840,50565,ribosome,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005840,MGYA00005305,0.5405615169
+51,go-terms,GO:0005667,GO:0005667,2,transcription factor complex,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005667,MGYA00005305,2.13809e-05
+52,go-terms,GO:0005694,GO:0005694,5172,chromosome,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005694,MGYA00005305,0.0552908962
+53,go-terms,GO:0005737,GO:0005737,120555,cytoplasm,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005737,MGYA00005305,1.2887846073
+54,go-terms,GO:0005856,GO:0005856,54,cytoskeleton,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005856,MGYA00005305,0.0005772831
+55,go-terms,GO:0005783,GO:0005783,12,endoplasmic reticulum,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005783,MGYA00005305,0.0001282851
+56,go-terms,GO:0005727,GO:0005727,5751,extrachromosomal circular DNA,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005727,MGYA00005305,0.0614806543
+57,go-terms,GO:0005794,GO:0005794,4,Golgi apparatus,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005794,MGYA00005305,4.27617e-05
+58,go-terms,GO:0005739,GO:0005739,68,mitochondrion,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005739,MGYA00005305,0.0007269491
+59,go-terms,GO:0009295,GO:0009295,62,nucleoid,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009295,MGYA00005305,0.0006628066
+60,go-terms,GO:0005634,GO:0005634,80,nucleus,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005634,MGYA00005305,0.0008552343
+61,go-terms,GO:0042597,GO:0042597,4772,periplasmic space,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0042597,MGYA00005305,0.0510147248
+62,go-terms,GO:0009579,GO:0009579,38,thylakoid,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009579,MGYA00005305,0.0004062363
+63,go-terms,GO:0005773,GO:0005773,0,vacuole,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005773,MGYA00005305,0.0
+64,go-terms,GO:0031982,GO:0031982,15,vesicle,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0031982,MGYA00005305,0.0001603564
+65,go-terms,GO:0043190,GO:0043190,972,ATP-binding cassette (ABC) transporter complex,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0043190,MGYA00005305,0.0103910965
+66,go-terms,GO:0005618,GO:0005618,1626,cell wall,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005618,MGYA00005305,0.0173826367
+67,go-terms,GO:0019861,GO:0019861,1683,flagellum,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0019861,MGYA00005305,0.0179919912
+68,go-terms,GO:0016020,GO:0016020,425432,membrane,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016020,MGYA00005305,4.5480503759
+69,go-terms,GO:0019867,GO:0019867,6341,outer membrane,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0019867,MGYA00005305,0.0677880071
+70,go-terms,GO:0009289,GO:0009289,10,pilus,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0009289,MGYA00005305,0.0001069043
+71,go-terms,GO:0005886,GO:0005886,7892,plasma membrane,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005886,MGYA00005305,0.0843688617
+72,go-terms,GO:0070469,GO:0070469,32,respiratory chain,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0070469,MGYA00005305,0.0003420937
+73,go-terms,GO:0031012,GO:0031012,106,extracellular matrix,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0031012,MGYA00005305,0.0011331854
+74,go-terms,GO:0019012,GO:0019012,25152,virion,cellular_component,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0019012,MGYA00005305,0.2688856575
+75,go-terms,GO:0048037,GO:0048037,185016,cofactor binding,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0048037,MGYA00005305,1.9779003186
+76,go-terms,GO:0008092,GO:0008092,71,cytoskeletal protein binding,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0008092,MGYA00005305,0.0007590204
+77,go-terms,GO:0046872,GO:0046872,115643,metal ion binding,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0046872,MGYA00005305,1.2362732226
+78,go-terms,GO:0003676,GO:0003676,427490,nucleic acid binding,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0003676,MGYA00005305,4.5700512777
+79,go-terms,GO:0000166,GO:0000166,526064,nucleotide binding,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0000166,MGYA00005305,5.6238495763
+80,go-terms,GO:0005102,GO:0005102,46,receptor binding,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005102,MGYA00005305,0.0004917597
+81,go-terms,GO:0008134,GO:0008134,6726,transcription factor binding,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0008134,MGYA00005305,0.0719038221
+82,go-terms,GO:0051082,GO:0051082,5349,unfolded protein binding,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0051082,MGYA00005305,0.057183102
+83,go-terms,GO:0004812,GO:0004812,80941,aminoacyl-tRNA ligase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0004812,MGYA00005305,0.8652939729
+84,go-terms,GO:0016853,GO:0016853,122056,isomerase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016853,MGYA00005305,1.3048309405
+85,go-terms,GO:0016874,GO:0016874,162003,ligase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016874,MGYA00005305,1.7318814876
+86,go-terms,GO:0016829,GO:0016829,87466,lyase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016829,MGYA00005305,0.9350490188
+87,go-terms,GO:0016491,GO:0016491,214817,oxidoreductase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016491,MGYA00005305,2.2964857782
+88,go-terms,GO:0016887,GO:0016887,114124,ATPase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016887,MGYA00005305,1.2200344617
+89,go-terms,GO:0003924,GO:0003924,20645,GTPase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0003924,MGYA00005305,0.2207038963
+90,go-terms,GO:0004386,GO:0004386,14296,helicase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0004386,MGYA00005305,0.1528303658
+91,go-terms,GO:0016787,GO:0016787,530385,hydrolase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016787,MGYA00005305,5.6700429178
+92,go-terms,GO:0016810,GO:0016810,47189,"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds",molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016810,MGYA00005305,0.5044706303
+93,go-terms,GO:0016788,GO:0016788,70167,"hydrolase activity, acting on ester bonds",molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016788,MGYA00005305,0.7501152963
+94,go-terms,GO:0016798,GO:0016798,124056,"hydrolase activity, acting on glycosyl bonds",molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016798,MGYA00005305,1.3262117975
+95,go-terms,GO:0016298,GO:0016298,46,lipase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016298,MGYA00005305,0.0004917597
+96,go-terms,GO:0004518,GO:0004518,33731,nuclease activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0004518,MGYA00005305,0.3605988436
+97,go-terms,GO:0008233,GO:0008233,85079,peptidase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0008233,MGYA00005305,0.909530966
+98,go-terms,GO:0016791,GO:0016791,7645,phosphatase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016791,MGYA00005305,0.0817283259
+99,go-terms,GO:0016407,GO:0016407,9602,acetyltransferase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016407,MGYA00005305,0.1026494944
+100,go-terms,GO:0034061,GO:0034061,11830,DNA polymerase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0034061,MGYA00005305,0.1264677691
+101,go-terms,GO:0016301,GO:0016301,74426,kinase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016301,MGYA00005305,0.7956458312
+102,go-terms,GO:0004672,GO:0004672,22147,protein kinase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0004672,MGYA00005305,0.2367609199
+103,go-terms,GO:0034062,GO:0034062,27249,RNA polymerase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0034062,MGYA00005305,0.2913034861
+104,go-terms,GO:0016740,GO:0016740,394848,transferase activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016740,MGYA00005305,4.2210943107
+105,go-terms,GO:0016746,GO:0016746,34949,"transferase activity, transferring acyl groups",molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016746,MGYA00005305,0.3736197855
+106,go-terms,GO:0016765,GO:0016765,26019,"transferase activity, transferring alkyl or aryl (other than methyl) groups",molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016765,MGYA00005305,0.278154259
+107,go-terms,GO:0016757,GO:0016757,38171,"transferase activity, transferring glycosyl groups",molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0016757,MGYA00005305,0.4080643461
+108,go-terms,GO:0030234,GO:0030234,3811,enzyme regulator activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0030234,MGYA00005305,0.040741223
+109,go-terms,GO:0003774,GO:0003774,438,motor activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0003774,MGYA00005305,0.0046824077
+110,go-terms,GO:0001071,GO:0001071,57091,nucleic acid binding transcription factor activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0001071,MGYA00005305,0.6103272533
+111,go-terms,GO:0000988,GO:0000988,23248,protein binding transcription factor activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0000988,MGYA00005305,0.2485310817
+112,go-terms,GO:0004872,GO:0004872,81443,receptor activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0004872,MGYA00005305,0.870660568
+113,go-terms,GO:0045182,GO:0045182,0,translation regulator activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0045182,MGYA00005305,0.0
+114,go-terms,GO:0005215,GO:0005215,190691,transporter activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0005215,MGYA00005305,2.0385685003
+115,go-terms,GO:0000156,GO:0000156,379,phosphorelay response regulator activity,molecular_function,https://www.ebi.ac.uk/metagenomics/api/v1/annotations/go-terms/GO:0000156,MGYA00005305,0.0040516724

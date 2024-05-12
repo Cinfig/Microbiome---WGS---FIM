@@ -101,22 +101,38 @@ The following relevant files are use the MGnify and other API:
    
                Input files:
    
-                     names.csv: This file is a database dump of the species_names-species_ID pairs from NCBI. This file can be to be obtained the following way:
+                     'names.csv': This file is a database dump of the species_names-species_ID pairs from NCBI. This file can be to be obtained the following way:
                            Download the taxdump.tar.Z from 'https://ftp.ncbi.nih.gov/pub/taxonomy/'.
                            Rename the file 'names.dmp' to 'names.csv'.
                            Copy 'names.csv' and paste it into the folder of this script.
 
-                     final_transaction_dataset_taxonomy_species.csv: This is the output of step 3.
+                     'final_transaction_dataset_taxonomy_species.csv': This is the output of step 3.
 
                      The 'Connect_species_with_functionality.py' python module and the two input files need to be in the same folder.
 
                Output files:
 
-                     species_and_id_df.csv: This file contains the species name and ID pairs and the type of the match: exact or not exact.
+                     'species_and_id_df.csv': This file contains the species name and ID pairs and the type of the match: exact or not exact.
 
-         -'2' to establish all proved species and functionalities combinations present in our selected study\n \
+         -'2' connect_taxon_id_and_functionality_id(): This function establishes all possible species and functionalities combinations based on species/functionalities present in the                                                         selected study. The runtime of the function can be extremely long due to multiple API requests.
+
+               Input files:
+
+                     'species_and_id_df.csv': This file is the output of the above-mentioned function.
+
+                     'final_transaction_dataset_taxonomy_species.csv': This file is the output of step 3.
+
+                     'final_transaction_dataset_go-slim.csv': This file is the output of step 3.
+
+                     The 'Connect_species_with_functionality.py' python module and the three input files need to be in the same folder.
+
+               Output files:
+
+                     'goname_goid_df.csv': This file contains the all possible species ID and functionality combinations.
+   
+   o establish all proved species and functionalities combinations present in our selected study\n \
          -'3' to create a transactional database considering species and functionalities present in each sample of the study")))
-7. Mine.py
+8. Mine.py
 
 
 

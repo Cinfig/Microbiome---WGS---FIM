@@ -264,7 +264,7 @@ class Pull_selected_project:
     def pull_selected_data(self):
         
         self.set_selected_project_id(str(input("Enter a study ID below:\n")))
-        self.set_metadata_response(self.Connect.pull_data(f"https://www.ebi.ac.uk/metagenomics/api/v1/studies/{self.get_selected_project_id()}/analyses"))
+        
         
         print(f"\nTaxonomy level names are:\n {TAXONOMY_LEVEL_NAMES}\n")
         print(f"Functionality names are:\n {FUNCTIONALITY_NAMES}\n")
@@ -275,6 +275,10 @@ class Pull_selected_project:
         self.set_user_input_list(self.get_user_input())
         
         self.set_user_input_second(str(input("Would you like to add an additional taxonomy level or a functionality type?\n Enter 'y' for yes or 'n' for no.\n\n")))
+
+        while self.get_user_input_second() not in ['y', 'n']:
+            self.set_user_input_second(str(input("Would you like to add an additional taxonomy level or a functionality type?\n Enter 'y' for yes or 'n' for no.\n\n")))
+        
         while self.get_user_input_second() == 'y':
             self.set_user_input(str(input("Enter a taxonomy level or a functionality type below.\nAvailable options are found above.\n\n")))
             while (self.get_user_input() not in TAXONOMY_LEVEL_NAMES) & (self.get_user_input() not in FUNCTIONALITY_NAMES):
@@ -283,14 +287,24 @@ class Pull_selected_project:
             self.set_user_input_second(str(input("Would you like to add an additional taxonomy level or a functionality type?\nEnter 'y' for yes or 'n' for no.\n\n")))
         
         
-        
+        self.set_metadata_response(self.Connect.pull_data(f"https://www.ebi.ac.uk/metagenomics/api/v1/studies/{self.get_selected_project_id()}/analyses"))
         self.n = 0
-        print(f"The total number of samples in this project is {len(self.get_metadata_response()['data'])}")
         while self.n < ((len(self.get_metadata_response()['data']))):
            self.get_sample_id_list().append(self.get_metadata_response()['data'][self.n]['id']) 
            
            print(f"Sample {self.n} of the selected project is: {self.get_metadata_response()['data'][self.n]['id']}")
            self.n = self.n + 1
+
+        while self.get_metadata_response()['links']['next'] is not None:
+            self.set_metadata_response(self.Connect.pull_data(self.get_metadata_response()['links']['next']))
+            self.k = 0
+            while self.k < ((len(self.get_metadata_response()['data']))):
+                self.get_sample_id_list().append(self.get_metadata_response()['data'][self.k]['id']) 
+                print(f"Sample {self.n} of the selected project is: {self.get_metadata_response()['data'][self.k]['id']}")
+                self.k = self.k + 1
+                self.n = self.n + 1
+        
+        print(f"The total number of samples in this project is {self.n}")
         
         
         if len(self.get_user_input_list()) == 1:

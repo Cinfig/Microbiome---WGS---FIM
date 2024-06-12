@@ -62,9 +62,9 @@ The following relevant files are use the MGnify and other API:
 
          Please note if the selected taxonomy level/functionality is not available in the selected study ID, no files will be downloaded.
 
-      f, The scripts print the number samples in the selected study and the unique ID of each sample.
+      f, The script prints the sample number in the selected study and the unique ID of each sample.
    
-      g, While the script is running, multiple csv files are saved. For example, the above mentioned MGYS00000465 study has 25 samples.
+      g, While the script is running, multiple csv files are saved. For example, the above mentioned MGYS00000465 study has 40 samples.
    
          One csv file containing the relative abundance will be saved per unique sample ID:
    

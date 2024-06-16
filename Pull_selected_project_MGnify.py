@@ -8,6 +8,7 @@ Created on Mon Dec 18 05:22:35 2023
 
 import Connector_MGnify as Conn
 import pandas as pd
+import numpy as np
 import copy
 import sys
 import os

@@ -93,7 +93,10 @@ The following relevant files are use the MGnify and other API:
             In case "go-slim" functionality was selected:
                "final_transaction_dataset_go-slim.csv"
 
-4. Connect_species_with_functionality.py
+         One file with sample id details such as "Sample_id" (MGYA00005291 - MGYA00005330), "Secondary_sample_id" (ERS625306 - ERS625345).           And two additional empty columns where sample catgories can be added, suchs Category I (Healthy_1_1, Helthy_1_2, Healthy_2_1,               etc.) to indicate duplicate samples per person and Caregory II (Healthy_1, Healthy_1, Healthy_2, etc.) without duplicate sample    
+         details.
+
+5. Connect_species_with_functionality.py
    
       This python module has 3 functions and after launching the script the user need to select which function to run.
    
@@ -151,7 +154,7 @@ The following relevant files are use the MGnify and other API:
                       'taxon_functionality_matrix_final.csv': This file is the transactional database of species and functionlity combinations per sample. 
 
                      
-5. Mine.py
+6. Mine.py
 
 
 

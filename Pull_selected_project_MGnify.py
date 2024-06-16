@@ -29,7 +29,10 @@ class Pull_selected_project:
         self.user_input_list = []
         self.selected_project_id = ""
         self.metadata_response = ""
+        self.sample_metadata_response = ""
         self.sample_id_list = []
+        self.secondary_sample_id_list = []
+        self.sample_id_dataframe = pd.DataFrame()
         self.taxonomy_response = ""
         self.functionality_response = ""
         self.missing_or_unassigned_taxon = ""
@@ -82,6 +85,12 @@ class Pull_selected_project:
     def set_metadata_response(self, assign):
         self.metadata_response = assign
 
+    def set_sample_metadata_response(self, assign):
+        self.sample_metadata_response = assign
+        
+    def get_sample_metadata_response(self):
+        return self.sample_metadata_response
+
     def get_taxonomy_response(self):
         return self.taxonomy_response
         
@@ -96,6 +105,9 @@ class Pull_selected_project:
         
     def get_sample_id_list(self):
         return self.sample_id_list 
+
+    def get_secondary_sample_id_list(self):
+        return self.secondary_sample_id_list 
 
     def get_taxonomy_dataframe(self):
         return self.taxonomy_dataframe
@@ -264,6 +276,8 @@ class Pull_selected_project:
     def pull_selected_data(self):
         
         self.set_selected_project_id(str(input("Enter a study ID below:\n")))
+        while (self.get_selected_project_id() in TAXONOMY_LEVEL_NAMES) | (self.get_selected_project_id() in FUNCTIONALITY_NAMES):
+            self.set_selected_project_id(str(input("Enter a valid study ID below, for example, MGYS00000465.\n")))
         
         
         print(f"\nTaxonomy level names are:\n {TAXONOMY_LEVEL_NAMES}\n")
@@ -288,24 +302,35 @@ class Pull_selected_project:
         
         
         self.set_metadata_response(self.Connect.pull_data(f"https://www.ebi.ac.uk/metagenomics/api/v1/studies/{self.get_selected_project_id()}/analyses"))
+        self.set_sample_metadata_response(self.Connect.pull_data(f"https://www.ebi.ac.uk/metagenomics/api/v1/studies/{self.get_selected_project_id()}/samples"))
         self.n = 0
         while self.n < ((len(self.get_metadata_response()['data']))):
-           self.get_sample_id_list().append(self.get_metadata_response()['data'][self.n]['id']) 
+           self.get_sample_id_list().append(self.get_metadata_response()['data'][self.n]['id'])
+           self.get_secondary_sample_id_list().append(self.get_sample_metadata_response()['data'][self.n]['id'])
            
            print(f"Sample {self.n} of the selected project is: {self.get_metadata_response()['data'][self.n]['id']}")
            self.n = self.n + 1
 
+        self.l = 0
         while self.get_metadata_response()['links']['next'] is not None:
             self.set_metadata_response(self.Connect.pull_data(self.get_metadata_response()['links']['next']))
+            self.set_sample_metadata_response(self.Connect.pull_data(self.get_sample_metadata_response()['links']['next']))
             self.k = 0
             while self.k < ((len(self.get_metadata_response()['data']))):
-                self.get_sample_id_list().append(self.get_metadata_response()['data'][self.k]['id']) 
+                self.get_sample_id_list().append(self.get_metadata_response()['data'][self.k]['id'])
+                self.get_secondary_sample_id_list().append(self.get_sample_metadata_response()['data'][self.l]['id'])
                 print(f"Sample {self.n} of the selected project is: {self.get_metadata_response()['data'][self.k]['id']}")
                 self.k = self.k + 1
                 self.n = self.n + 1
+                self.l = self.l + 1
         
-        print(f"The total number of samples in this project is {self.n}")
+        #print(f"The total number of samples in this project is {self.n}")
         
+        self.sample_id_dataframe["Sample_id"] = self.get_sample_id_list()
+        self.sample_id_dataframe["Secondary_sample_id"] = self.get_secondary_sample_id_list()
+        self.sample_id_dataframe["Category I"] = np.nan
+        self.sample_id_dataframe["Category II"] = np.nan
+        self.sample_id_dataframe.to_csv(f"{SAVE_PATH}/final_sample_ids.csv")
         
         if len(self.get_user_input_list()) == 1:
             if str(self.get_user_input_list()[0]) in TAXONOMY_LEVEL_NAMES:

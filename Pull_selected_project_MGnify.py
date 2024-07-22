@@ -331,6 +331,7 @@ class Pull_selected_project:
         self.sample_id_dataframe["Secondary_sample_id"] = self.get_secondary_sample_id_list()
         self.sample_id_dataframe["Category I"] = np.nan
         self.sample_id_dataframe["Category II"] = np.nan
+        self.sample_id_dataframe["Category III"] = np.nan
         self.sample_id_dataframe.to_csv(f"{SAVE_PATH}/final_sample_ids.csv")
         
         if len(self.get_user_input_list()) == 1:

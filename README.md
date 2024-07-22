@@ -33,13 +33,13 @@ The following relevant files are use the MGnify and other API:
       c, Run the Pull_all_projects_MGnify.py by entering 'python Pull_all_projects_MGnify.py'
    
       d, Interactively select a human biome type, for example, 47 for root:Host-associated:Human:Skin) in the console.
-   
+
          ![image](https://github.com/user-attachments/assets/999761aa-1236-4796-832a-37ee6a82fb95)
 
    
       e, Interactively select the experiment type, for example, 5 for metagenomic. Please note that the script was only tested with the    
          'metagenomic' experiment type as that experiment type is in the main focus.
-   
+
          ![image](https://github.com/user-attachments/assets/2ff9a78c-d122-4daf-8878-82407f02f4ae)
 
 

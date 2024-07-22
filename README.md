@@ -19,6 +19,10 @@ The following relevant files are use the MGnify and other API:
     - It saves all available human biome types to human_biomes_out.csv
     - It saves all available experiment types to all_sequence_methods_out.csv
     - It saves the final output based on our selection to selected_human_biomes_out.csv
+
+   The runtime to pull data and save the human_biomes_out.csv and all_sequence_methods_out.csv files is 2 minutes.
+   The runtime, for example, to pull the Human skin biom associated studies with metagenomic experiment type (4 out of 35 Human skin biom
+   associated studies studies), and save the selected_human_biomes_out.csv is 3.5 minutes.
    
    How to use it - step-by-step guide:
    
@@ -33,7 +37,7 @@ The following relevant files are use the MGnify and other API:
       e, Interactively select the experiment type, for example, 5 for metagenomic. Please note that the script was only tested with the    
          'metagenomic' experiment type as that experiment type is in the main focus.
 
-3. Pull_selected_project_MGnify.py
+4. Pull_selected_project_MGnify.py
    
    This module pulls project data based on a selected project ID, a selected taxonomy levels and/or functionality categoryies.
 

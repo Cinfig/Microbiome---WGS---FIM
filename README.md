@@ -71,6 +71,8 @@ The following relevant files are use the MGnify and other API:
          Please note if the selected taxonomy level/functionality is not available in the selected study ID, no files will be downloaded.
 
       f, The script prints the sample number in the selected study and the unique ID of each sample.
+         ![image](https://github.com/user-attachments/assets/838835bf-bb92-475d-8696-dc2183fe4057)
+
    
       g, While the script is running, multiple csv files are saved. For example, the above mentioned MGYS00000465 study has 40 samples.
    
@@ -110,7 +112,7 @@ The following relevant files are use the MGnify and other API:
                Category I (Healthy_1_1, Healthy_1_2, Healthy_2_1, etc.) to indicate duplicate samples per person.
                Caregory II (Healthy_1, Healthy_1, Healthy_2, etc.) without duplicate sample details.
 
-5. Connect_species_with_functionality.py
+6. Connect_species_with_functionality.py
    
       This python module has 3 functions and after launching the script the user need to select which function to run.
    
@@ -168,7 +170,7 @@ The following relevant files are use the MGnify and other API:
                       'taxon_functionality_matrix_final.csv': This file is the transactional database of species and functionlity combinations per sample. 
 
                      
-6. Mine.py
+7. Mine.py
 
 
 

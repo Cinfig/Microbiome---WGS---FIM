@@ -111,9 +111,14 @@ The following relevant files are use the MGnify and other API:
             "Sample_id" (MGYA00005291 - MGYA00005330)
             "Secondary_sample_id" (ERS625306 - ERS625345)
    
-            Two additional empty columns where sample catgories can be added, for example:
-               Category I (Healthy_1_1, Healthy_1_2, Healthy_2_1, etc.) to indicate duplicate samples per person.
-               Caregory II (Healthy_1, Healthy_1, Healthy_2, etc.) without duplicate sample details.
+            There additional empty columns where sample catgories must be manually populated the folllowing way, for example:
+               Category I (Healthy_1_1, Healthy_1_2, Healthy_2_1, etc.) to indicate duplicate samples per person. Populate with "-" if not
+               available.
+               Category II (Healthy_1, Healthy_1, Healthy_2, etc.) without duplicate sample details. Populate with "-" if not
+               available.
+               Category III (Healthy, IBD) to indicate the highest level of binary categories. It must be available and populated for the
+               later steps.
+               
 
 6. Connect_species_with_functionality.py
    

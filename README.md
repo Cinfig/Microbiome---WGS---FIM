@@ -15,7 +15,7 @@ The following relevant files are use the MGnify and other API:
    
 2. Pull_all_projects_MGnify.py
    
-   This modul pulls all project data based on the interactively selected human biome type and experiment type.
+   This modul pulls the names of all projects based on the interactively selected human biome type and experiment type.
     - It saves all available human biome types to human_biomes_out.csv
     - It saves all available experiment types to all_sequence_methods_out.csv
     - It saves the final output based on our selection to selected_human_biomes_out.csv
@@ -75,6 +75,9 @@ The following relevant files are use the MGnify and other API:
 
    
       g, While the script is running, multiple csv files are saved. For example, the above mentioned MGYS00000465 study has 40 samples.
+
+         The runtime of the script to pull species and go-slim composition data of the 40 samples and save the .csv output files is 8
+         minutes.
    
          One csv file containing the relative abundance will be saved per unique sample ID:
    

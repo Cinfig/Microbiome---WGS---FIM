@@ -120,11 +120,11 @@ The following relevant files are use the MGnify and other API:
                later steps.
                
 
-6. Connect_species_with_functionality.py
+5. Connect_species_with_functionality.py
    
-      This python module has 3 functions and after launching the script the user need to select which function to run.
+      This python module has 4 functions and after launching the script the user need to select which function to run.
    
-         -'1' find_species_id(): This function connects the species names of the species data exported from MGnify to the species ID. Firstly, the script looks for exact name match,                                       secondly it looks for the '.sp' not exact name match, and ifnally it looks for the not exact match based on the species' genus name.
+         -'1' find_species_id_offline(): This function connects the species names of the species data exported from MGnify to the species ID. It runs offline using an exported NCBI data dump. Firstly, the script looks for exact name match,                                       secondly it looks for the '.sp' not exact name match, and finally it looks for the not exact match based on the species' genus name.
    
                Input files:
    
@@ -140,8 +140,20 @@ The following relevant files are use the MGnify and other API:
                Output files:
 
                      'species_and_id_df.csv': This file contains the species name and ID pairs and the type of the match: exact or not exact.
+   
+         -'2' find_species_id_online(): This function connects the species names of the species data exported from MGnify to the species ID. It runs online utilising NCBI's EDirect access. Firstly, the script looks for exact name match,                                       secondly it looks for the '.sp' not exact name match, and finally it looks for the not exact match based on the species' genus name.
 
-         -'2' connect_taxon_id_and_functionality_id(): This function establishes all possible species and functionalities combinations based on species/functionalities present in the                                                         selected study. The runtime of the function can be extremely long due to multiple API requests.The following QucikGO API is used:
+               Input files:
+
+                     'final_transaction_dataset_taxonomy_species.csv': This is the output of step 3.
+
+                     The 'Connect_species_with_functionality.py' python module and the input file need to be in the same folder.
+
+               Output files:
+
+                     'species_and_id_df.csv': This file contains the species name and ID pairs and the type of the match: exact or not exact.
+            
+         -'3' connect_taxon_id_and_functionality_id(): This function establishes all possible species and functionalities combinations based on species/functionalities present in the                                                         selected study. The runtime of the function can be extremely long due to multiple API requests.The following QucikGO API is used:
 
                                                        https://www.ebi.ac.uk/QuickGO/api/index.html#!/annotations/annotationLookupUsingGET
 
@@ -161,7 +173,7 @@ The following relevant files are use the MGnify and other API:
 
                      'taxon_functionality_matrix.csv': This file contains the all possible species ID and functionality combinations.
    
-         -'3' create_taxonomy_and_functionality_transaction_dataframes(): This function creates a transactional database considering species and functionalities present in each sample.
+         -'4' create_taxonomy_and_functionality_transaction_dataframes(): This function creates a transactional database considering species and functionalities present in each sample.
 
                Input files:
 

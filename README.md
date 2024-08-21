@@ -41,7 +41,7 @@ The following relevant files are use the MGnify and other API:
          ![image](https://github.com/user-attachments/assets/2ff9a78c-d122-4daf-8878-82407f02f4ae)
 
 
-4. Pull_selected_project_MGnify.py
+3. Pull_selected_project_MGnify.py
    
    This module pulls project data based on a selected project ID, a selected taxonomy levels and/or functionality categoryies.
 
@@ -118,8 +118,16 @@ The following relevant files are use the MGnify and other API:
                available.
                Category III (Healthy, IBD) to indicate the highest level of binary categories. It must be available and populated for the
                later steps.
-               
 
+         One file with go-slim related details "counts_of_functionality_df.csv":
+            id - GO:0030031
+            attributes.description - cell projection assembly
+            attributes.lineage - biological_process
+            Sample_id - MGYA00005291
+               
+4. Explortory_data_analysis.py
+
+   
 5. Connect_species_with_functionality.py
    
       This python module has 4 functions and after launching the script the user need to select which function to run.

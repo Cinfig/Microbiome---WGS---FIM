@@ -200,7 +200,9 @@ The following relevant files are use the MGnify and other API:
    
          -'2' find_species_id_online(): This function connects the species names of the species data exported from MGnify to the species ID. It runs
          online utilising NCBI's EDirect access. Firstly, the script looks for exact name match, secondly it looks for the '.sp' not exact name
-         match, and finally it looks for the not exact match based on the species' genus name.
+         match, and finally it looks for the not exact match based on the species' genus name. First, the package of NCBI's EDirect access needs to
+         be installed: https://www.ncbi.nlm.nih.gov/books/NBK179288/
+         Before you run this function, the export PATH=${HOME}/edirect:${PATH} needs to be run in the CLI to activate the EDirect access.
 
                Input files:
 
@@ -272,7 +274,7 @@ The following relevant files are use the MGnify and other API:
                      functionlity combinations per sample. 
 
                      
-6. Mine.py
+7. Mine.py
 
 
 

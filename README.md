@@ -165,19 +165,16 @@ The following relevant files are use the MGnify and other API:
 
          The files names depend on the entered parameters of the function. In my case the file names with the 'species' parameter were the following:
 
-               EDA_alpha_diversity_species.csv
+               EDA - alpha diversity - species.csv
                EDA - alpha diversity - richness - species.png
                EDA - alpha diversity - data summary - species.png
-               EDA - beta_diversity_species.csv
+               EDA - beta_diversity - species.csv
                EDA - beta diversity - Bray-Curtis - species.png
-               EDA - Jaccard similarity_species.csv
+               EDA - Jaccard similarity - species.csv
                EDA - Jaccard similarity - species.png
-               Kruskal_wallis_group_test.csv
+               EDA - Kruskal wallis group test - species.csv
    
-               
-      
-   
-6. Connect_species_with_functionality.py
+5. Connect_species_with_functionality.py
    
       This python module has 4 functions and after launching the script the user need to select which function to run.
    

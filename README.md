@@ -132,9 +132,34 @@ The following relevant files are use the MGnify and other API:
       eda_input_commands.txt file. When the Exploratory_data_analysis.py is executed in command line, the functions in the .txt file will be executed.
       Update the .txt file if you want to control which function to run, to change the input file name, to change an input parameter of a function, etc.
 
+      Functions:
+
+         -'1' calculate_alpha_diversity(input .csv file name, name for visualisation label):
+
+               calculate_alpha_diversity('final_transaction_dataset_taxonomy_species', 'species')
+               calculate_alpha_diversity('final_transaction_dataset_go-slim', 'go-lims-functionalities')
+   
+         -'2' calculate_beta_diversity(input .csv file name, name for visualisation label):
+
+               calculate_beta_diversity('final_transaction_dataset_taxonomy_species', 'species')
+               calculate_beta_diversity('final_transaction_dataset_go-slim', 'go-lims-functionalities')
+   
+         -'3' calculate_jaccard_similarity(input .csv file name, name for visualisation label):
+
+               calculate_jaccard_similarity('final_transaction_dataset_taxonomy_species', 'species')
+               calculate_jaccard_similarity('final_transaction_dataset_go-slim', 'go-lims-functionalities')
+
+         -'4' calculate_kruskal_wallis_group_test(input .csv file name, name for visualisation label, the greatest row index (sample number) of the first group):
+               My samples were ordered in a specific order. The first 20 samples (row index 0-19) belong to the first group (healthy individuals), and the last 20
+               samples (row index 20-39) belong to the second group (ill individuals). 19 is the greatest row number of the first group.
+
+               calculate_kruskal_wallis_group_test('final_transaction_dataset_taxonomy_species', 'species', 19)
+               calculate_kruskal_wallis_group_test('final_transaction_dataset_go-slim', 'go-slim', 19)
+      
+
       Input files:
 
-         ''
+         'final_transaction_dataset_taxonomy_species.csv'
       
    
 6. Connect_species_with_functionality.py

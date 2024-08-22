@@ -124,8 +124,12 @@ The following relevant files are use the MGnify and other API:
             attributes.description - cell projection assembly
             attributes.lineage - biological_process
             Sample_id - MGYA00005291
+
+         It is important to manually populate the Categroy I, Category II and Cattegory III columns with actual data or either nan in the
+         final_sample_ids.csv, final_transaction_dataset_taxonomy_species.csv and final_transaction_dataset_go-slim.csv. The uploaded files
+         are populated with this data.
                
-4. Exploratory_data_analysis.py
+5. Exploratory_data_analysis.py
 
       This python module has multiple functions to calculate Alpha diversity (richness), Beta diversity (Bray-Curtis), Jaccard similarity, Kruskal-Wallis test.
       Values are visualised by bar chart, box plot or heatmap. To run this module, download the Exploratory_data_analysis.py python module and the
@@ -174,7 +178,7 @@ The following relevant files are use the MGnify and other API:
                EDA - Jaccard similarity - species.png
                EDA - Kruskal wallis group test - species.csv
    
-5. Connect_species_with_functionality.py
+6. Connect_species_with_functionality.py
    
       This python module has 4 functions and after launching the script the user need to select which function to run.
    

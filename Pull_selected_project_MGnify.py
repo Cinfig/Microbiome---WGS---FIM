@@ -49,6 +49,7 @@ class Pull_selected_project:
         self.functionality_dataframe_final = pd.DataFrame()
         self.functionality_dataframe_transaction = pd.DataFrame()
         self.functionality_dataframe_transaction_final = pd.DataFrame()
+        self.counts_of_functionality_df = pd.DataFrame()
         self.count_sums_df = pd.DataFrame()
         self.unique_sample_ids = []
         
@@ -176,6 +177,12 @@ class Pull_selected_project:
     def set_functionality_dataframe_transaction_final(self, assign):
         self.functionality_dataframe_transaction_final = assign
 
+    def get_counts_of_functionality_df(self):
+        return self.counts_of_functionality_df
+    
+    def set_counts_of_functionality_df(self, assign):
+        self.counts_of_functionality_df = assign
+
     '''
     It creates a functionality transaction database
     '''
@@ -200,6 +207,25 @@ class Pull_selected_project:
                 self.functionality_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_{save_id}.csv")
             else:
                 pass
+
+        self.functionality_dataframe_transaction_final['Sample_id'] = self.sample_id_dataframe["Sample_id"]
+        self.functionality_dataframe_transaction_final['Secondary_sample_id'] = self.sample_id_dataframe["Secondary_sample_id"]
+        self.functionality_dataframe_transaction_final['Category I'] = ""
+        self.functionality_dataframe_transaction_final['Category II'] = ""
+        self.functionality_dataframe_transaction_final['Category III'] = ""
+        self.sample_id_column = self.functionality_dataframe_transaction_final['Sample_id']
+        self.secondary_sample_id_column = self.functionality_dataframe_transaction_final['Secondary_sample_id']
+        self.category_I_column = self.functionality_dataframe_transaction_final['Category I']
+        self.category_II_column = self.functionality_dataframe_transaction_final['Category II']
+        self.category_III_column= self.functionality_dataframe_transaction_final['Category III']
+        self.functionality_dataframe_transaction_final.drop(labels=['Sample_id', 'Secondary_sample_id', 'Category I', 'Category II',
+                                                               'Category III'], axis = 1, inplace = True)
+        self.functionality_dataframe_transaction_final.insert(0, 'Sample_id', self.sample_id_column)
+        self.functionality_dataframe_transaction_final.insert(1, 'Secondary_sample_id', self.secondary_sample_id_column)
+        self.functionality_dataframe_transaction_final.insert(2, 'Category I', self.category_I_column)
+        self.functionality_dataframe_transaction_final.insert(3, 'Category II', self.category_II_column)
+        self.functionality_dataframe_transaction_final.insert(4, 'Category III', self.category_III_column)
+        self.functionality_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_{save_id}.csv")
 
         self.set_functionality_dataframe_final(pd.DataFrame())
         self.set_functionality_dataframe_merged(pd.DataFrame())
@@ -230,6 +256,25 @@ class Pull_selected_project:
                 self.taxonomy_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_{save_id}.csv")
             else:
                 pass
+
+        self.taxonomy_dataframe_transaction_final['Sample_id'] = self.sample_id_dataframe["Sample_id"]
+        self.taxonomy_dataframe_transaction_final['Secondary_sample_id'] = self.sample_id_dataframe["Secondary_sample_id"]
+        self.taxonomy_dataframe_transaction_final['Category I'] = ""
+        self.taxonomy_dataframe_transaction_final['Category II'] = ""
+        self.taxonomy_dataframe_transaction_final['Category III'] = ""
+        self.sample_id_column = self.taxonomy_dataframe_transaction_final['Sample_id']
+        self.secondary_sample_id_column = self.taxonomy_dataframe_transaction_final['Secondary_sample_id']
+        self.category_I_column = self.taxonomy_dataframe_transaction_final['Category I']
+        self.category_II_column = self.taxonomy_dataframe_transaction_final['Category II']
+        self.category_III_column= self.taxonomy_dataframe_transaction_final['Category III']
+        self.taxonomy_dataframe_transaction_final.drop(labels=['Sample_id', 'Secondary_sample_id', 'Category I', 'Category II',
+                                                               'Category III'], axis = 1, inplace = True)
+        self.taxonomy_dataframe_transaction_final.insert(0, 'Sample_id', self.sample_id_column)
+        self.taxonomy_dataframe_transaction_final.insert(1, 'Secondary_sample_id', self.secondary_sample_id_column)
+        self.taxonomy_dataframe_transaction_final.insert(2, 'Category I', self.category_I_column)
+        self.taxonomy_dataframe_transaction_final.insert(3, 'Category II', self.category_II_column)
+        self.taxonomy_dataframe_transaction_final.insert(4, 'Category III', self.category_III_column)
+        self.taxonomy_dataframe_transaction_final.to_csv(f"{SAVE_PATH}/final_transaction_dataset_{save_id}.csv")       
         
         self.set_taxonomy_dataframe_final(pd.DataFrame())
         self.set_taxonomy_dataframe_merged(pd.DataFrame())
@@ -250,13 +295,13 @@ class Pull_selected_project:
                     except:
                         self.missing_or_unassigned_taxon += 1
                 self.count_sums_df = input_dataframe.groupby([f'{level}']).attributes_count.sum()
-                #print(self.count_sums_df)
                 for item in input_dataframe[f'{level}'].unique():
                     input_dataframe.loc[input_dataframe[f'{level}'] == f"{item}", f'{level}_relative_abundance'] = ((input_dataframe[f'{level}_count'] / self.count_sums_df.sum()) * 100).round(10)
             else:
                 pass
         print(f'The total number of unassigned taxon and taxon without a value is {self.missing_or_unassigned_taxon}')  
         input_dataframe.to_csv(f"{SAVE_PATH}/relative_abundance_of_{name}_{sample_id}.csv")
+
         return input_dataframe
     
     
@@ -268,6 +313,14 @@ class Pull_selected_project:
         for item in input_dataframe['attributes.accession'].unique():
             input_dataframe.loc[input_dataframe['attributes.accession'] == f"{item}", 'attributes.relative_abundance'] = ((input_dataframe['attributes.count'] / self.count_sums_df) * 100).round(10)
         input_dataframe.to_csv(f"{SAVE_PATH}/relative_abundance_of_{name}_{sample_id}.csv")
+
+        if self.get_counts_of_functionality_df().shape[0] == 0:
+            self.set_counts_of_functionality_df(input_dataframe)
+            self.get_counts_of_functionality_df().to_csv(f"{SAVE_PATH}/counts_of_functionality_df.csv")
+        else:
+            self.set_counts_of_functionality_df(pd.concat([self.get_counts_of_functionality_df(), input_dataframe], axis = 0))
+            self.get_counts_of_functionality_df().to_csv(f"{SAVE_PATH}/counts_of_functionality_df.csv")
+
         return input_dataframe    
 
             

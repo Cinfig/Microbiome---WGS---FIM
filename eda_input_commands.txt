@@ -1,0 +1,31 @@
+# If you hide a line with a # sign, that line will not be executed. Do not use ''' ''' in this section for the same purpose.
+# All lines can be run together in this section.
+
+# The following two lines calculates the alpha diversity (richness) of each sample for species and go-slim functionality,
+# and visualise those values.
+
+calculate_alpha_diversity('final_transaction_dataset_taxonomy_species', 'species')
+calculate_alpha_diversity('final_transaction_dataset_go-slim', 'go-lims-functionalities')
+
+
+
+# The following two lines calculates the beta diversity (Bray-Curtis) values among all sample pairs for species and go-slim
+# functionality, and visualise those values.
+
+calculate_beta_diversity('final_transaction_dataset_taxonomy_species', 'species')
+calculate_beta_diversity('final_transaction_dataset_go-slim', 'go-lims-functionalities')
+
+
+
+# The following two lines calculates the Jaccard similarity values among all sample pairs species and go-slim functionality,
+# and visualise those values.
+
+calculate_jaccard_similarity('final_transaction_dataset_taxonomy_species', 'species')
+calculate_jaccard_similarity('final_transaction_dataset_go-slim', 'go-lims-functionalities')
+
+
+
+# The following two lines are for a Kruskal Wallis Hypothesis test. If the p-value is below is below 0.05, it indicates significant difference between two the groups (Healthy/IBD).
+
+calculate_kruskal_wallis_group_test('final_transaction_dataset_taxonomy_species', 'species', 19)
+calculate_kruskal_wallis_group_test('final_transaction_dataset_go-slim', 'go-slim', 19)

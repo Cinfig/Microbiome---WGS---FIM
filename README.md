@@ -125,10 +125,19 @@ The following relevant files are use the MGnify and other API:
             attributes.lineage - biological_process
             Sample_id - MGYA00005291
                
-4. Explortory_data_analysis.py
+4. Exploratory_data_analysis.py
 
+      This python module has multiple functions to calculate Alpha diversity (richness), Beta diversity (Bray-Curtis), Jaccard similarity, Kruskal-Wallis test.
+      Values are visualised by bar chart, box plot or heatmap. To run this module, download the Exploratory_data_analysis.py python module and the
+      eda_input_commands.txt file. When the Exploratory_data_analysis.py is executed in command line, the functions in the .txt file will be executed.
+      Update the .txt file if you want to control which function to run, to change the input file name, to change an input parameter of a function, etc.
+
+      Input files:
+
+         ''
+      
    
-5. Connect_species_with_functionality.py
+6. Connect_species_with_functionality.py
    
       This python module has 4 functions and after launching the script the user need to select which function to run.
    
@@ -182,9 +191,7 @@ The following relevant files are use the MGnify and other API:
 
                      The 'Connect_species_with_functionality.py' python module and the three input files need to be in the same folder.
 
-               Output files:
-
-                     'goname_goid_df.csv': This file contains go functionality ID and go functionality name pairs. 
+               Output file:
 
                      'taxon_functionality_matrix.csv': This file contains the all possible species ID and functionality combinations.
    

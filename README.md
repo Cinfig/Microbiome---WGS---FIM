@@ -268,11 +268,11 @@ The following relevant files are use the MGnify and other API:
 
                Output files:
 
-                     'taxon_functionality_matrix_final.csv': This file is the transactional database of species and functionlity
-                     combinations per sample. 
+                     'final_taxon_functionality_transaction_dataset.csv': This file is the transactional database of species and
+                     functionlity combinations per sample. 
 
                      
-7. Mine.py
+6. Mine.py
 
 
 

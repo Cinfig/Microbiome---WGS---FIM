@@ -1,0 +1,39 @@
+
+import itertools
+import pandas as pd
+import numpy as np
+import re
+import json
+import copy
+import sys
+import os
+import matplotlib as mpl
+import seaborn as sns
+import requests
+import string
+import math
+import openpyxl
+from requests.adapters import HTTPAdapter, Retry
+from pprint import pprint
+from datetime import datetime
+from matplotlib import pyplot as plt
+from matplotlib import colors as mcolors
+from matplotlib import _color_data as mcd
+from sklearn import preprocessing
+from scipy.spatial import distance
+from scipy import stats
+from mlxtend.frequent_patterns import apriori
+from mlxtend.frequent_patterns import fpgrowth
+from mlxtend.frequent_patterns import association_rules
+from openpyxl.styles.borders import Border, Side
+
+
+
+
+
+
+
+
+
+
+

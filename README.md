@@ -380,7 +380,7 @@ The following relevant files are use the MGnify and other API:
       healthy samples and ill samples were mined separately with species and go-slim data.
 
                Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, 'taxonomy_all_species',
-               'final_transaction_dataset_taxonomy_species_new_columns_C')
+               'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
                Association_rules_mining('fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7,
                'taxonomy_species_HEALTHY','final_transaction_dataset_taxonomy_species_HEALTHY_new_columns_abund_filtered')
                Association_rules_mining('fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, 'taxonomy_species_IBD',
@@ -391,6 +391,20 @@ The following relevant files are use the MGnify and other API:
                slim_HEALTHY_new_columns_abund_filtered')
                Association_rules_mining('fpgrowth_mining_go-slim_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, 'go-slim_IBD', 'final_transaction_dataset_go-
                slim_IBD_new_columns_abund_filtered')
+
+         -'8' It is possible to run association rules mining with the lift value. It is optional. All lines can be run altogether.The input and output files are uploaded.
+
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, 'taxonomy_all_species',
+               'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2,
+               'taxonomy_species_HEALTHY','final_transaction_dataset_taxonomy_species_HEALTHY_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, 'taxonomy_species_IBD',
+               'final_transaction_dataset_taxonomy_species_IBD_new_columns_abund_filtered')
+
+               Association_rules_mining('fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, 'go-slim_all', 'final_transaction_dataset_go-slim_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_go-slim_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2,'go-slim_HEALTHY', 'final_transaction_dataset_go-
+               slim_HEALTHY_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_go-slim_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, 'go-slim_IBD', 'final_transaction_dataset_go-slim_IBD_new_columns_abund_filtered')
 
 
 

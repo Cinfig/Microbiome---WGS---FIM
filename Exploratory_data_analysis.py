@@ -98,7 +98,7 @@ class EDA:
 
         self.get_output_df()['Sample number'] = self.sample_number
         self.get_output_df()['Alpha diversity'] = self.alpha_richness
-        self.get_output_df().to_csv(f"{SAVE_PATH}/EDA_alpha_diversity_{title}.csv")
+        self.get_output_df().to_csv(f"{SAVE_PATH}/EDA - alpha_diversity - {title}.csv")
 
         self.fig, self.ax = plt.subplots(figsize=(12, 7))
         self.ax.set_xlabel("Sample number")
@@ -167,7 +167,7 @@ class EDA:
         for i, item in enumerate(self.braycurtis_df['Sample combination']):
             self.braycurtis_df_matrix.at[item[1], item[0]] = self.braycurtis_df.at[i,'Bray_curtis_value']
         self.braycurtis_df_matrix.fillna(0, inplace = True)
-        self.braycurtis_df.to_csv(f"{SAVE_PATH}/EDA - beta_diversity_{title}.csv")
+        self.braycurtis_df.to_csv(f"{SAVE_PATH}/EDA - beta_diversity - {title}.csv")
 
         self.fig, self.ax = plt.subplots(figsize = (15,15), layout = "constrained")
         self.mask = np.triu(np.ones_like(self.braycurtis_df_matrix, dtype = bool))
@@ -218,7 +218,7 @@ class EDA:
         
         self.jaccard_df['Sample combination'] = self.get_index_combination_list()
         self.jaccard_df['Jaccard_similarity_value'] = self.jaccard_list
-        self.jaccard_df.to_csv(f"{SAVE_PATH}/EDA - Jaccard similarity_{title}.csv")
+        self.jaccard_df.to_csv(f"{SAVE_PATH}/EDA - Jaccard similarity - {title}.csv")
         
         self.jaccard_df_matrix = pd.DataFrame(index = self.get_index_list(), columns = self.get_index_list())
         for i, item in enumerate(self.jaccard_df['Sample combination']):
@@ -316,7 +316,7 @@ class EDA:
         else:
             self.output_df['Meaning of the Outcome'] = "The Null-hypothesis is accepted, the central tendencies are equal."
         
-        self.output_df.to_csv(f"{SAVE_PATH}/Kruskal_wallis_group_test.csv")
+        self.output_df.to_csv(f"{SAVE_PATH}/EDA - Kruskal wallis group test - {title}.csv")
         self.empty_dataframes_lists()
 
 eda = EDA()

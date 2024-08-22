@@ -149,7 +149,7 @@ The following relevant files are use the MGnify and other API:
                calculate_jaccard_similarity('final_transaction_dataset_taxonomy_species', 'species')
                calculate_jaccard_similarity('final_transaction_dataset_go-slim', 'go-lims-functionalities')
 
-         -'4' calculate_kruskal_wallis_group_test(input .csv file name, name for visualisation label, the greatest row index (sample number) of the first group):
+         -'4' calculate_kruskal_wallis_group_test(input .csv file name, name for visualisation label and output file, the greatest row index (sample number) of the first group):
                My samples were ordered in a specific order. The first 20 samples (row index 0-19) belong to the first group (healthy individuals), and the last 20
                samples (row index 20-39) belong to the second group (ill individuals). 19 is the greatest row number of the first group.
 
@@ -159,7 +159,22 @@ The following relevant files are use the MGnify and other API:
 
       Input files:
 
-         'final_transaction_dataset_taxonomy_species.csv'
+         'final_transaction_dataset_taxonomy_species.csv' and 'final_transaction_dataset_go-slim' are the outputs of the Pull_selected_project_MGnify.py.
+
+      Output files:
+
+         The files names depend on the entered parameters of the function. In my case the file names with the 'species' parameter were the following:
+
+               EDA_alpha_diversity_species.csv
+               EDA - alpha diversity - richness - species.png
+               EDA - alpha diversity - data summary - species.png
+               EDA - beta_diversity_species.csv
+               EDA - beta diversity - Bray-Curtis - species.png
+               EDA - Jaccard similarity_species.csv
+               EDA - Jaccard similarity - species.png
+               Kruskal_wallis_group_test.csv
+   
+               
       
    
 6. Connect_species_with_functionality.py

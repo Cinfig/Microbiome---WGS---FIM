@@ -26,8 +26,7 @@
 
 
 
-# The 'fpgrowth_mining...' output of the following functions wil e required for investigating the effect of selected minimum support value on the length and frequency of frequent itemsets, 
-# closed itemsets and maximum frequent itemsets in case of species and go-slim functionalities.
+# The 'fpgrowth_mining...' output of the following functions will be required for investigating the effect of selected minimum support value on the length and frequency of #frequent itemsets, closed itemsets and maximum frequent itemsets in case of species and go-slim functionalities.
 # Keep only the 'fpgrowth_mining...' output files. The 'abund_cutoff', 'abund_filtered', 'presence_absence_evaluation' output files will be overwritten. 
 # Otherwise run the lines in pairs (species+go-slim), and move the output files to a different folder after each run.
 
@@ -79,8 +78,7 @@
 
 
 
-# Run the following 12 lines at the same time. Ensure that the correct 'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered' file is used, which was generated with the
-# 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6' file.
+# The effect of minimum confidence value was evaluated here. Run the following 12 lines at the same time. Ensure that the correct 'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered' file is used, which was generated # with the 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6' file. 
 
 #Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.4, 'taxonomy_all_species', 'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
 #Association_rules_mining('fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.4, 'go-slim_all', 'final_transaction_dataset_go-slim_new_columns_abund_filtered')
@@ -99,7 +97,7 @@
 
 # Run the Association rules mining with 0.7 minimum confidence value. Run all 6 lines together. Ensure that the correct 'abund_filtered' files are used as input.
 
-#Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, 'taxonomy_all_species', 'final_transaction_dataset_taxonomy_species_new_columns_C')
+#Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, 'taxonomy_all_species', 'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
 #Association_rules_mining('fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, #'taxonomy_species_HEALTHY','final_transaction_dataset_taxonomy_species_HEALTHY_new_columns_abund_filtered')
 #Association_rules_mining('fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, 'taxonomy_species_IBD', #'final_transaction_dataset_taxonomy_species_IBD_new_columns_abund_filtered')
 
@@ -111,7 +109,7 @@
 
 # It is possible to run the Association rules mining algorithm with the minimum lift. It is optional.
 
-#Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, 'taxonomy_all_species', 'final_transaction_dataset_taxonomy_species_new_columns_C')
+#Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, 'taxonomy_all_species', 'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
 #Association_rules_mining('fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, #'taxonomy_species_HEALTHY','final_transaction_dataset_taxonomy_species_HEALTHY_new_columns_abund_filtered')
 #Association_rules_mining('fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, 'taxonomy_species_IBD', #'final_transaction_dataset_taxonomy_species_IBD_new_columns_abund_filtered')
 

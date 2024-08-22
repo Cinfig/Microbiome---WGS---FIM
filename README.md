@@ -285,13 +285,14 @@ The following relevant files are use the MGnify and other API:
    
       -'1' The update_dataframes() function only need to be executed once per transactional dataset to transform it to the correct format. The input file is the output file of step 4. Ensure that the Category I,
       Category II and Category III columns are populated in that file. Binary values in the Category III column will be used to split the transactional dataset. If a go-slim transaction dataste is updated, an
-      additional parameter (update_functionality_ID_file) is required to transform GO Id-s GO Names.
+      additional parameter (update_functionality_ID_file) is required to transform GO Id-s GO Names. The input and output files are uploaded.
 
-               #pdate_dataframes(input_file = 'final_transaction_dataset_taxonomy_species')
+               update_dataframes(input_file = 'final_transaction_dataset_taxonomy_species')
                update_dataframes(input_file = 'final_transaction_dataset_go-slim', update_functionality_ID_file = 'counts_of_functionality_df')
 
       -'2' Investigating the effect of selected relative abundance threshold value on the number of species and go-slim functionalities. Run the functions in pairs (species and go-slim), otherwise the 'abund_cutoff',
-      'abund_filtered', 'presence_absence_evaluation' output files will be overwritten. The abundance threshold values investigated are 0.01, 0.05 and 0.1. The input file is the output file of step 4.
+      'abund_filtered', 'presence_absence_evaluation' output files will be overwritten. The abundance threshold values investigated are 0.01, 0.05 and 0.1. The input file is the output file of step 4. The input and
+      output files are uploaded.
 
                FPGrowth(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_go-slim_new_columns")
                FPGrowth(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_taxonomy_species_new_columns")
@@ -304,6 +305,7 @@ The following relevant files are use the MGnify and other API:
 
       -'3' Investigating the effect of minimum support value from 0.4 to 0.9 with 0.1 increment. As only the 'fpgrowth_mining...' output files are required for the evaluation, all lines can be run together,
       but discard the 'abund_cutoff', 'abund_filtered', 'presence_absence_evaluation' output files due to being overwritten. Optionally run the functions in pairs. The input file is the output file of step 4.
+      The input and output files are uploaded.
 
                FPGrowth(abundance_threshold = 0.1, min_support = 0.9, input_file = "final_transaction_dataset_taxonomy_species_new_columns")
                FPGrowth(abundance_threshold = 0.1, min_support = 0.9, input_file = "final_transaction_dataset_go-slim_new_columns")
@@ -322,6 +324,56 @@ The following relevant files are use the MGnify and other API:
 
                FPGrowth(abundance_threshold = 0.1, min_support = 0.4, input_file = "final_transaction_dataset_taxonomy_species_new_columns")
                FPGrowth(abundance_threshold = 0.1, min_support = 0.4, input_file = "final_transaction_dataset_go-slim_new_columns")
+
+         -'4' Run the FPgrowth frequent itemset mining algorithm with the selected 0.6 minimum support value for species and functonality. The input file is the output file of step 4. The input and output files are
+         uploaded. All functions can be run together.
+
+               FPGrowth(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_taxonomy_species_new_columns")
+               FPGrowth(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_taxonomy_species_HEALTHY_new_columns")
+               FPGrowth(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_taxonomy_species_IBD_new_columns")
+
+               FPGrowth(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_go-slim_new_columns")
+               FPGrowth(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_go-slim_HEALTHY_new_columns")
+               FPGrowth(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_go-slim_IBD_new_columns")
+
+         -'5' Apriori algorithm is also supported, it is optional. The input file is the output file of step 4. The input and output files are uploaded. All functions can be run together.
+
+               Apriori(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_taxonomy_species_new_columns")
+               Apriori(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_taxonomy_species_HEALTHY_new_columns")
+               Apriori(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_taxonomy_species_IBD_new_columns")
+
+               Apriori(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_go-slim_new_columns")
+               Apriori(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_go-slim_HEALTHY_new_columns")
+               Apriori(abundance_threshold = 0.1, min_support = 0.6, input_file = "final_transaction_dataset_go-slim_IBD_new_columns")
+
+      - '6' The effect of minimum confidence value is investigated here. Ensure that the correct 'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered' file is used, which was generated with the
+        'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6' file. All lines can be run altogether. The input file is the output file of either the FPGrowth or Apriori algorithm.
+
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.4, 'taxonomy_all_species',
+              'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.4, 'go-slim_all', 'final_transaction_dataset_go-slim_new_columns_abund_filtered')
+        
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.5, 'taxonomy_all_species',
+              'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.5, 'go-slim_all', 'final_transaction_dataset_go-slim_new_columns_abund_filtered')
+        
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.6, 'taxonomy_all_species',
+              'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.6, 'go-slim_all', 'final_transaction_dataset_go-slim_new_columns_abund_filtered')
+        
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, 'taxonomy_all_species',
+              'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.7, 'go-slim_all', 'final_transaction_dataset_go-slim_new_columns_abund_filtered')
+        
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.8, 'taxonomy_all_species',
+              'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.8, 'go-slim_all', 'final_transaction_dataset_go-slim_new_columns_abund_filtered')
+        
+               Association_rules_mining('fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.9, 'taxonomy_all_species',
+              'final_transaction_dataset_taxonomy_species_new_columns_abund_filtered')
+               Association_rules_mining('fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', 'confidence', 0.9,'go-slim_all', 'final_transaction_dataset_go-slim_new_columns_abund_filtered')
+
+
 
 
 

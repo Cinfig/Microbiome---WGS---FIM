@@ -196,7 +196,7 @@ The following relevant files are use the MGnify and other API:
 
                Output files:
 
-                     'species_and_id_df.csv': This file contains the species name and ID pairs and the type of the match: exact or not exact.
+                     'species_and_id_df_offline.csv': This file contains the species name and ID pairs and the type of the match: exact or not exact.
    
          -'2' find_species_id_online(): This function connects the species names of the species data exported from MGnify to the species ID. It runs
          online utilising NCBI's EDirect access. Firstly, the script looks for exact name match, secondly it looks for the '.sp' not exact name
@@ -210,17 +210,37 @@ The following relevant files are use the MGnify and other API:
 
                Output files:
 
-                     'species_and_id_df.csv': This file contains the species name and ID pairs and the type of the match: exact or not exact.
+                     'species_and_id_df_online.csv': This file contains the species name and ID pairs and the type of the match: exact or not exact.
             
-         -'3' connect_taxon_id_and_functionality_id(): This function establishes all possible species and functionalities combinations based on
-         species/functionalities present in the selected study. The runtime of the function can be extremely long due to multiple API requests.The
-         following QucikGO API is used:
+         -'3' connect_taxon_id_and_functionality_id(category = 'offline'): This function establishes all possible species and
+         functionalities combinations based on species/functionalities present in the selected study. The runtime of the
+         function can be extremely long due to multiple API requests.The following QucikGO API is used:
 
                https://www.ebi.ac.uk/QuickGO/api/index.html#!/annotations/annotationLookupUsingGET
 
                Input files:
 
-                     'species_and_id_df.csv': This file is the output of the above-mentioned function.
+                     'species_and_id_df_offline.csv': This file is the output of the find_species_id_offline() function.
+
+                     'final_transaction_dataset_taxonomy_species.csv': This file is the output of step 3.
+
+                     'final_transaction_dataset_go-slim.csv': This file is the output of step 3.
+
+                     The 'Connect_species_with_functionality.py' python module and the three input files need to be in the same folder.
+
+               Output file:
+
+                     'taxon_functionality_matrix.csv': This file contains the all possible species ID and functionality combinations.
+
+         -'4' connect_taxon_id_and_functionality_id(category = 'online'): This function establishes all possible species and
+         functionalities combinations based on species/functionalities present in the selected study. The runtime of the
+         function can be extremely long due to multiple API requests.The following QucikGO API is used:
+
+               https://www.ebi.ac.uk/QuickGO/api/index.html#!/annotations/annotationLookupUsingGET
+
+               Input files:
+
+                     'species_and_id_df_online.csv': This file is the output of the find_species_id_online() function.
 
                      'final_transaction_dataset_taxonomy_species.csv': This file is the output of step 3.
 
@@ -232,12 +252,13 @@ The following relevant files are use the MGnify and other API:
 
                      'taxon_functionality_matrix.csv': This file contains the all possible species ID and functionality combinations.
    
-         -'4' create_taxonomy_and_functionality_transaction_dataframes(): This function creates a transactional database considering species and
-         functionalities present in each sample.
+         -'5' create_taxonomy_and_functionality_transaction_dataframes(): This function creates a transactional database considering
+         species and functionalities present in each sample.
 
                Input files:
 
-                     'species_and_id_df.csv': This file is the output of the first function.
+                     'species_and_id_df_online.csv' or 'species_and_id_df_offline.csv': First, it tries to load in the 'online'
+                     file and then the 'offline' file.
 
                      'taxon_functionality_matrix.csv': This file is the output of the above-mentioned function.
 
@@ -247,8 +268,8 @@ The following relevant files are use the MGnify and other API:
 
                Output files:
 
-                     'taxon_functionality_matrix_final.csv': This file is the transactional database of species and functionlity combinations per
-                     sample. 
+                     'taxon_functionality_matrix_final.csv': This file is the transactional database of species and functionlity
+                     combinations per sample. 
 
                      
 7. Mine.py

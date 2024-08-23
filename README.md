@@ -406,6 +406,85 @@ The following relevant files are use the MGnify and other API:
                slim_HEALTHY_new_columns_abund_filtered')
                Association_rules_mining('fpgrowth_mining_go-slim_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', 'lift', 1.2, 'go-slim_IBD', 'final_transaction_dataset_go-slim_IBD_new_columns_abund_filtered')
 
+7. Visualising.py
+
+            The following four functions only need to be executed once. The first and last functions merges the closed itemset matrix of species and functionalities. The second function  merges the closed healthy and IBD itemset matrices of species. The third function does the same with the closed healthy and ill itemset matrices of functionalities. Run these these 4 functions first, after that hide them with #.
+
+            merge_species_with_functionalities(extension = 'xlsx', input_file_species = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', input_file_functionalities = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', output_name = 'all_mined_threshold_0.1_min_support_0.6', species_sheet = 'Closed itemsets by sample mtx', functionlities_sheet = 'Closed itemsets by sample mtx')
+
+            merge_healthy_with_ill(extension = 'xlsx', input_file_healthy = 'fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', input_file_ill = 'fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', output_name = 'species_threshold_0.1_min_support_0.6', healthy_sheet='Closed itemsets by sample mtx', ill_sheet = 'Closed itemsets by sample mtx')
+
+            merge_healthy_with_ill(extension = 'xlsx', input_file_healthy = 'fpgrowth_mining_go-slim_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', input_file_ill = 'fpgrowth_mining_go-slim_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', output_name = 'go-lims_threshold_0.1_min_support_0.6', healthy_sheet='Closed itemsets by sample mtx', ill_sheet = 'Closed itemsets by sample mtx')
+
+            merge_species_with_functionalities(extension = 'csv', input_file_species = 'healthy_with_ill_species_threshold_0.1_min_support_0.6', input_file_functionalities = 'healthy_with_ill_go-lims_threshold_0.1_min_support_0.6', output_name = 'ill_healthy_mined_threshold_0.1_min_support_0.6')
+
+
+
+
+            It visualizes the merged matricesas binary heatmaps when all samples were mined altogether.
+            matrix_visualisation(extension = 'csv', input_file = 'species_with_functionalities_all_mined_threshold_0.1_min_support_0.6', title = "All mined - closed itemsets", threshold = 25, wraplength = 100, max_lines = 2, title_fontsize = 22)
+
+
+            It visualizes the merged matricesas binary heatmaps when ill and health samples were mined separately.
+            matrix_visualisation(extension = 'csv', input_file = 'species_with_functionalities_ill_healthy_mined_threshold_0.1_min_support_0.6', title = "Healthy-IBD mined - closed itemsets", threshold = 25, wraplength = 135, max_lines = 2, title_fontsize = 16 )
+
+
+            It visualizes the effect of support threshold values on the length and frequency of  frequent species itemsets, closed species itemsets and max frequent species itemsets when all samples were mined altogether.
+            visualize_itemset_stats('All_samples_mined_species', 'for different support threshold values', file_support_04 = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.4', file_support_05 = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.5', file_support_06 = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', file_support_07 = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.7', file_support_08 = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.8', file_support_09 = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.9')
+
+            It visualizes the effect of support threshold values on the length and frequency of frequent go-slim itemsets, closed go-slim itemsets and max frequent go-slim itemsets when all samples were mined altogether.
+            visualize_itemset_stats('All_samples_mined_go-slim', 'for different support threshold values', file_support_04 = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.4', file_support_05 = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.5', file_support_06 = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', file_support_07 = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.7', file_support_08 = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.8', file_support_09 = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.9')
+
+
+            It visualizes the itemset lengths and frequencies when healthy and ill samples were merged separately.
+            visualize_itemset_stats('Healthy_samples_mined_go-slim', 'for 0.6 support threshold', healthy_go_slim = 'fpgrowth_mining_go-slim_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6')
+            visualize_itemset_stats('IBD_samples_mined_go-slim', 'for 0.6 support threshold', ibd_go_slim = 'fpgrowth_mining_go-slim_IBD_new_columns_abundance_threshold_0.1_min_support_0.6')
+            visualize_itemset_stats('Health_samples_mined_species', 'for 0.6 support threshold', healthy_species = 'fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6')
+            visualize_itemset_stats('IBD_samples_mined_species', 'for 0.6 support threshold', ibd_species = 'fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6')
+
+
+
+            It visualizes the the species and go-slim functionalities based on the total number of occurence.
+            visualise_by_item(output_name = 'all mined - frequent itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'All itemsets by item')
+
+            visualise_by_item(output_name = 'all mined - closed itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'Closed itemsets by item')
+
+            visualise_by_item(output_name = 'all mined - max frequent itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'Max frequent itemsets by item')
+
+            visualise_by_item(output_name = 'Healthy mined - frequent itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'All itemsets by item')
+
+            visualise_by_item(output_name = 'Healthy mined - closed itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'Closed itemsets by item')
+
+            visualise_by_item(output_name = 'Healthy mined - max frequent itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_HEALTHY_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'Max frequent itemsets by item')
+
+            visualise_by_item(output_name = 'IBD mined - frequent itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'All itemsets by item')
+
+            visualise_by_item(output_name = 'IBD mined - closed itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'Closed itemsets by item')
+
+            visualise_by_item(output_name = 'IBD mined - max frequent itemsets', file_name_species = 'fpgrowth_mining_taxonomy_species_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', file_name_functionalty = 'fpgrowth_mining_go-slim_IBD_new_columns_abundance_threshold_0.1_min_support_0.6', input_sheet = 'Max frequent itemsets by item')
+
+
+
+            Jaccard similarity values are calculated here.
+            visualise_jaccard_similarity(extension = 'csv', input_file = 'species_with_functionalities_all_mined_threshold_0.1_min_support_0.6', title = 'All mined - closed itemsets')
+            visualise_jaccard_similarity(extension = 'csv', input_file = 'species_with_functionalities_ill_healthy_mined_threshold_0.1_min_support_0.6', title = 'Healthy_IBD mined - closed itemsets')
+
+
+
+            The effect of minimum confidence value on the total length and frequency of go-slim association rules is visualised.
+            visualize_association_rules_stats('All_samples_association_rules_go-slim', 'for different confidence threshold values', file_confidence_04 = 'association_rules_mining_go-slim_all_metric_confidence_min_threshold_0.4_input_file', file_confidence_05 = 'association_rules_mining_go-slim_all_metric_confidence_min_threshold_0.5_input_file',  file_confidence_06 = 'association_rules_mining_go-slim_all_metric_confidence_min_threshold_0.6_input_file', file_confidence_07 = 'association_rules_mining_go-slim_all_metric_confidence_min_threshold_0.7_input_file', file_confidence_08 = 'association_rules_mining_go-slim_all_metric_confidence_min_threshold_0.8_input_file', file_support_09 = 'association_rules_mining_go-slim_all_metric_confidence_min_threshold_0.9_input_file')
+
+            The effect of minimum confidence value on the total length and frequency of species association rules is visualised.
+            visualize_association_rules_stats('All_samples_association_rules_species', 'for different confidence threshold values', file_confidence_04 = 'association_rules_mining_taxonomy_all_species_metric_confidence_min_threshold_0.4_input_file', file_confidence_05 = 'association_rules_mining_taxonomy_all_species_metric_confidence_min_threshold_0.5_input_file', file_confidence_06 = 'association_rules_mining_taxonomy_all_species_metric_confidence_min_threshold_0.6_input_file', file_confidence_07 = 'association_rules_mining_taxonomy_all_species_metric_confidence_min_threshold_0.7_input_file', file_confidence_08 = 'association_rules_mining_taxonomy_all_species_metric_confidence_min_threshold_0.8_input_file', file_confidence_09 = 'association_rules_mining_taxonomy_all_species_metric_confidence_min_threshold_0.9_input_file')
+
+
+
+            The association rules are visualised in a 3D space of antedecent support, consequent support, and confidence when healthy and IBD samples were mined separately.
+            visualize_support_confidence_healthy_IBD_mined('association_rules_mining_taxonomy_species_HEALTHY_metric_confidence_min_threshold_0.7_input_file', 'Closed assoc. rules', 'association_rules_mining_taxonomy_species_IBD_metric_confidence_min_threshold_0.7_input_file', 'Closed assoc. rules', 'association_rules_mining_go-slim_HEALTHY_metric_confidence_min_threshold_0.7_input_file', 'Closed assoc. rules', 'association_rules_mining_go-slim_IBD_metric_confidence_min_threshold_0.7_input_file', 'Closed assoc. rules')
+
+
+            The association rules are visualised in a 3D space of antedecent support, consequent support, and confidence when all samples were mined altogether.
+            visualize_support_confidence_all_mined('association_rules_mining_taxonomy_all_species_metric_confidence_min_threshold_0.7_input_file', 'Closed assoc. rules', 'association_rules_mining_go-slim_all_metric_confidence_min_threshold_0.7_input_file', 'Closed assoc. rules')
 
 
 
